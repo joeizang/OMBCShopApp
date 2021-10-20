@@ -1,0 +1,23 @@
+@model IEnumerable<OBMCShopApp.ViewModels.ProductIndexViewModel>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-controller="Products" asp-action="Create">Create New</a>
+</p>
+
+<ejs-grid id="Grid" dataSource="Model" allowPaging="true" allowSorting="true">
+    <e-grid-pagesettings pageSize="10"></e-grid-pagesettings>
+    <e-grid-columns>
+        <e-grid-columns field="ProductID" headerText="Product ID"></e-grid-columns>
+        <e-grid-columns field="Name" headerText="Product Name"></e-grid-columns>
+        <e-grid-columns field="RetailPrice" headerText="Selling Price" format="C2"></e-grid-columns>
+        <e-grid-columns field="CostPrice" headerText="Cost Price" format="C2"></e-grid-columns>
+        <e-grid-columns field="SupplyDate" headerText="Supply Date" width="100" customFormat="@(new { type ="date", format="dd/MM/yyyy" })">
+        </e-grid-columns>
+    </e-grid-columns>
+</ejs-grid>

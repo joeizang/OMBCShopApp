@@ -1,0 +1,24 @@
+@model IReadOnlyList<Product>
+
+@{
+    ViewBag.Title = "Products";
+    Layout = "_Layout";
+}
+
+<h2 class="h2 text-center">@ViewBag.Title</h2>
+
+<div class="row">
+    <div class="d-flex justify-content-center align-items-center">
+        <a asp-controller="Products" asp-action="Create"></a>
+    </div>
+    <ejs-grid id="Grid" dataSource="Model" allowPaging="true" allowFiltering="true">
+        <e-grid-pagesettings pageSize="10"></e-grid-pagesettings>
+        <e-grid-columns>
+            <e-grid-columns field="Id" headerText="Product ID"></e-grid-columns>
+            <e-grid-columns field="Name" headerText="Product Name"></e-grid-columns>
+            <e-grid-columns field="RetailPrice" headerText="Selling Price"></e-grid-columns>
+            <e-grid-columns field="CostPrice" headerText="Cost Price"></e-grid-columns>
+            <e-grid-columns field="SupplyDate" headerText="Supply Date"></e-grid-columns>
+        </e-grid-columns>
+    </ejs-grid>
+</div>

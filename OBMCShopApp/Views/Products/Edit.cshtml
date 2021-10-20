@@ -1,0 +1,75 @@
+@model OBMCShopApp.ViewModels.ProductCreateInputModel
+
+@{
+    // ViewData["Title"] = "Create";
+    // Layout = "_Layout.cshtml";
+}
+
+<h1 class="h1 text-center text-dark-50 text">Edit A Product</h1>
+<hr />
+<div class="row">
+    <div class="col-md-10 col-sm-10 card shadow m-auto rounded">
+        <form method="post" asp-action="UpdateProduct" asp-controller="Products" class="mt-5 mt-sm-4 mt-md-4">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control rounded larger-input-text" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="RetailPrice" class="control-label"></label>
+                <input asp-for="RetailPrice" class="form-control rounded larger-input-text" />
+                <span asp-validation-for="RetailPrice" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CostPrice" class="control-label"></label>
+                <input asp-for="CostPrice" class="form-control rounded larger-input-text" />
+                <span asp-validation-for="CostPrice" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SupplyDate" class="control-label"></label>
+                <input asp-for="SupplyDate" class="form-control" type="date"/>
+                <span asp-validation-for="SupplyDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Quantity" class="control-label"></label>
+                <input asp-for="Quantity" class="form-control rounded larger-input-text" />
+                <span asp-validation-for="Quantity" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Brand" class="control-label"></label>
+                <input asp-for="Brand" class="form-control rounded larger-input-text" />
+                <span asp-validation-for="Brand" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Comments" class="control-label"></label>
+                <input asp-for="Comments" class="form-control rounded larger-input-text" />
+                <span asp-validation-for="Comments" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="UnitMeasure" class="control-label"></label>
+                <select asp-for="UnitMeasure" class="form-control rounded" asp-items="Html.GetEnumSelectList<UnitMeasure>()">
+                    <option value="@Model.UnitMeasure">@Model.UnitMeasure</option>
+                </select>
+                <span asp-validation-for="UnitMeasure" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Shelf Number</label>
+                <select asp-for="ShelfId" class="form-control rounded" asp-items="@(new SelectList(Model.Shelves,"ShelfNumber","ShelfId"))">
+                    <option value="@Model.ShelfId">@Model.Shelves.Single(s => s.ShelfId == Model.ShelfId).ShelfNumber</option>
+                    <option value="">Select a Shelf Number</option>
+                </select>
+            </div>
+            <div class="form-group mb-4">
+                <input type="submit" value="Create" class="btn btn-block btn-lg btn-primary border-primary rounded" />
+            </div>
+        </form>
+        <div class="mb-4"><a asp-controller="Products" asp-action="Index" class="bi-skip-backward-circle" style="font-size: 3rem;"></a></div>
+    </div>
+</div>
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script>
+    
+    </script>
+}

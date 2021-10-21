@@ -73,6 +73,20 @@ namespace OBMCShopApp.Controllers
             }
         }
 
+        [HttpGet("products/update-product/{id:int}")]
+        public async Task<ActionResult> UpdateProduct(int id)
+        {
+            var getProduct = await _service.GetOne(id).ConfigureAwait(false);
+            if (getProduct is null)
+                return NotFound();
+            var viewModel = new ProductUpdateViewModel
+            {
+                ProductId = getProduct.Id,
+                Name = getProduct.Name,
+                
+            }
+        }
+
         [HttpPost]
         public async Task<ActionResult> UpdateProduct(ProductCreateInputModel model)
         {

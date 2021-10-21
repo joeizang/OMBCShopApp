@@ -41,6 +41,7 @@ namespace OBMCShopApp
             services.AddScoped<ISaleDataService, SaleDataService>();
             services.AddScoped<IShelfDataService, ShelfDataService>();
             services.AddHttpContextAccessor();
+            services.AddAutoMapper(typeof(Startup));
             services.AddScoped(typeof(GenericDataService<>));
             services.AddControllersWithViews();
         }

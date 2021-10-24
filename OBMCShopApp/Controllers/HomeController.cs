@@ -10,7 +10,6 @@ using OBMCShopApp.Models;
 
 namespace OBMCShopApp.Controllers
 {
-    [Authorize]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;

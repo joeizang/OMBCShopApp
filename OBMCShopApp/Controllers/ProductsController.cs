@@ -1,5 +1,7 @@
 using System;
 using System.Threading.Tasks;
+using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using OBMCShopApp.Models;
@@ -9,15 +11,18 @@ using OBMCShopApp.ViewModels;
 
 namespace OBMCShopApp.Controllers
 {
+    [Authorize(Roles = "Owner,Admin")]
     public class ProductsController : Controller
     {
         private readonly IProductDataService _service;
         private readonly IShelfDataService _dataAccess;
+        private readonly IMapper _mapper;
 
-        public ProductsController(IProductDataService service, IShelfDataService shelfDataService)
+        public ProductsController(IProductDataService service, IShelfDataService shelfDataService, IMapper mapper)
         {
             _service = service;
             _dataAccess = shelfDataService;
+            _mapper = mapper;
         }
         // GET
         public async Task<IActionResult> Index()
@@ -76,15 +81,15 @@ namespace OBMCShopApp.Controllers
         [HttpGet("products/update-product/{id:int}")]
         public async Task<ActionResult> UpdateProduct(int id)
         {
+            // TODO: Move mapping logic deeper into the service types.
             var getProduct = await _service.GetOne(id).ConfigureAwait(false);
+            var shelves = await _dataAccess.GetShelfNumbers()
+                .ConfigureAwait(false);
             if (getProduct is null)
                 return NotFound();
-            var viewModel = new ProductUpdateViewModel
-            {
-                ProductId = getProduct.Id,
-                Name = getProduct.Name,
-                
-            }
+            var viewModel = _mapper.Map<ProductUpdateViewModel>(getProduct);
+            viewModel.Shelves = shelves;
+            return View("Edit", viewModel);
         }
 
         [HttpPost]

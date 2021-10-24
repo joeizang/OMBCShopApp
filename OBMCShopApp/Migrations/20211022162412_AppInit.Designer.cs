@@ -9,8 +9,8 @@ using OBMCShopApp.Data;
 namespace OBMCShopApp.Migrations
 {
     [DbContext(typeof(OBMCShopAppContext))]
-    [Migration("20211020110358_ShelfSeedAndSoftDelete")]
-    partial class ShelfSeedAndSoftDelete
+    [Migration("20211022162412_AppInit")]
+    partial class AppInit
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -169,11 +169,9 @@ namespace OBMCShopApp.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
                     b.Property<string>("LoginProvider")
-                        .HasMaxLength(128)
                         .HasColumnType("TEXT");
 
                     b.Property<string>("ProviderKey")
-                        .HasMaxLength(128)
                         .HasColumnType("TEXT");
 
                     b.Property<string>("ProviderDisplayName")
@@ -211,11 +209,9 @@ namespace OBMCShopApp.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("LoginProvider")
-                        .HasMaxLength(128)
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Name")
-                        .HasMaxLength(128)
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Value")
@@ -373,380 +369,380 @@ namespace OBMCShopApp.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedAt = new DateTimeOffset(new DateTime(2021, 10, 20, 12, 3, 58, 65, DateTimeKind.Unspecified).AddTicks(3227), new TimeSpan(0, 1, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2021, 10, 22, 17, 24, 12, 5, DateTimeKind.Unspecified).AddTicks(1232), new TimeSpan(0, 1, 0, 0, 0)),
                             IsDeleted = false,
                             ShelfDescription = "Has the following products",
                             ShelfNumber = "1",
-                            UpdatedAt = new DateTimeOffset(new DateTime(2021, 10, 20, 12, 3, 58, 71, DateTimeKind.Unspecified).AddTicks(8648), new TimeSpan(0, 1, 0, 0, 0))
+                            UpdatedAt = new DateTimeOffset(new DateTime(2021, 10, 22, 17, 24, 12, 11, DateTimeKind.Unspecified).AddTicks(7819), new TimeSpan(0, 1, 0, 0, 0))
                         },
                         new
                         {
                             Id = 2,
-                            CreatedAt = new DateTimeOffset(new DateTime(2021, 10, 20, 12, 3, 58, 72, DateTimeKind.Unspecified).AddTicks(1931), new TimeSpan(0, 1, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2021, 10, 22, 17, 24, 12, 12, DateTimeKind.Unspecified).AddTicks(1344), new TimeSpan(0, 1, 0, 0, 0)),
                             IsDeleted = false,
                             ShelfDescription = "Has the following products",
                             ShelfNumber = "2",
-                            UpdatedAt = new DateTimeOffset(new DateTime(2021, 10, 20, 12, 3, 58, 72, DateTimeKind.Unspecified).AddTicks(1957), new TimeSpan(0, 1, 0, 0, 0))
+                            UpdatedAt = new DateTimeOffset(new DateTime(2021, 10, 22, 17, 24, 12, 12, DateTimeKind.Unspecified).AddTicks(1373), new TimeSpan(0, 1, 0, 0, 0))
                         },
                         new
                         {
                             Id = 3,
-                            CreatedAt = new DateTimeOffset(new DateTime(2021, 10, 20, 12, 3, 58, 72, DateTimeKind.Unspecified).AddTicks(1972), new TimeSpan(0, 1, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2021, 10, 22, 17, 24, 12, 12, DateTimeKind.Unspecified).AddTicks(1388), new TimeSpan(0, 1, 0, 0, 0)),
                             IsDeleted = false,
                             ShelfDescription = "Has the following products",
                             ShelfNumber = "3",
-                            UpdatedAt = new DateTimeOffset(new DateTime(2021, 10, 20, 12, 3, 58, 72, DateTimeKind.Unspecified).AddTicks(1978), new TimeSpan(0, 1, 0, 0, 0))
+                            UpdatedAt = new DateTimeOffset(new DateTime(2021, 10, 22, 17, 24, 12, 12, DateTimeKind.Unspecified).AddTicks(1394), new TimeSpan(0, 1, 0, 0, 0))
                         },
                         new
                         {
                             Id = 4,
-                            CreatedAt = new DateTimeOffset(new DateTime(2021, 10, 20, 12, 3, 58, 72, DateTimeKind.Unspecified).AddTicks(1984), new TimeSpan(0, 1, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2021, 10, 22, 17, 24, 12, 12, DateTimeKind.Unspecified).AddTicks(1400), new TimeSpan(0, 1, 0, 0, 0)),
                             IsDeleted = false,
                             ShelfDescription = "Has the following products",
                             ShelfNumber = "4",
-                            UpdatedAt = new DateTimeOffset(new DateTime(2021, 10, 20, 12, 3, 58, 72, DateTimeKind.Unspecified).AddTicks(1989), new TimeSpan(0, 1, 0, 0, 0))
+                            UpdatedAt = new DateTimeOffset(new DateTime(2021, 10, 22, 17, 24, 12, 12, DateTimeKind.Unspecified).AddTicks(1405), new TimeSpan(0, 1, 0, 0, 0))
                         },
                         new
                         {
                             Id = 5,
-                            CreatedAt = new DateTimeOffset(new DateTime(2021, 10, 20, 12, 3, 58, 72, DateTimeKind.Unspecified).AddTicks(1995), new TimeSpan(0, 1, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2021, 10, 22, 17, 24, 12, 12, DateTimeKind.Unspecified).AddTicks(1411), new TimeSpan(0, 1, 0, 0, 0)),
                             IsDeleted = false,
                             ShelfDescription = "Has the following products",
                             ShelfNumber = "5",
-                            UpdatedAt = new DateTimeOffset(new DateTime(2021, 10, 20, 12, 3, 58, 72, DateTimeKind.Unspecified).AddTicks(2000), new TimeSpan(0, 1, 0, 0, 0))
+                            UpdatedAt = new DateTimeOffset(new DateTime(2021, 10, 22, 17, 24, 12, 12, DateTimeKind.Unspecified).AddTicks(1416), new TimeSpan(0, 1, 0, 0, 0))
                         },
                         new
                         {
                             Id = 6,
-                            CreatedAt = new DateTimeOffset(new DateTime(2021, 10, 20, 12, 3, 58, 72, DateTimeKind.Unspecified).AddTicks(2006), new TimeSpan(0, 1, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2021, 10, 22, 17, 24, 12, 12, DateTimeKind.Unspecified).AddTicks(1422), new TimeSpan(0, 1, 0, 0, 0)),
                             IsDeleted = false,
                             ShelfDescription = "Has the following products",
                             ShelfNumber = "6",
-                            UpdatedAt = new DateTimeOffset(new DateTime(2021, 10, 20, 12, 3, 58, 72, DateTimeKind.Unspecified).AddTicks(2011), new TimeSpan(0, 1, 0, 0, 0))
+                            UpdatedAt = new DateTimeOffset(new DateTime(2021, 10, 22, 17, 24, 12, 12, DateTimeKind.Unspecified).AddTicks(1427), new TimeSpan(0, 1, 0, 0, 0))
                         },
                         new
                         {
                             Id = 7,
-                            CreatedAt = new DateTimeOffset(new DateTime(2021, 10, 20, 12, 3, 58, 72, DateTimeKind.Unspecified).AddTicks(2017), new TimeSpan(0, 1, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2021, 10, 22, 17, 24, 12, 12, DateTimeKind.Unspecified).AddTicks(1433), new TimeSpan(0, 1, 0, 0, 0)),
                             IsDeleted = false,
                             ShelfDescription = "Has the following products",
                             ShelfNumber = "7",
-                            UpdatedAt = new DateTimeOffset(new DateTime(2021, 10, 20, 12, 3, 58, 72, DateTimeKind.Unspecified).AddTicks(2022), new TimeSpan(0, 1, 0, 0, 0))
+                            UpdatedAt = new DateTimeOffset(new DateTime(2021, 10, 22, 17, 24, 12, 12, DateTimeKind.Unspecified).AddTicks(1438), new TimeSpan(0, 1, 0, 0, 0))
                         },
                         new
                         {
                             Id = 8,
-                            CreatedAt = new DateTimeOffset(new DateTime(2021, 10, 20, 12, 3, 58, 72, DateTimeKind.Unspecified).AddTicks(2028), new TimeSpan(0, 1, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2021, 10, 22, 17, 24, 12, 12, DateTimeKind.Unspecified).AddTicks(1444), new TimeSpan(0, 1, 0, 0, 0)),
                             IsDeleted = false,
                             ShelfDescription = "Has the following products",
                             ShelfNumber = "8",
-                            UpdatedAt = new DateTimeOffset(new DateTime(2021, 10, 20, 12, 3, 58, 72, DateTimeKind.Unspecified).AddTicks(2033), new TimeSpan(0, 1, 0, 0, 0))
+                            UpdatedAt = new DateTimeOffset(new DateTime(2021, 10, 22, 17, 24, 12, 12, DateTimeKind.Unspecified).AddTicks(1449), new TimeSpan(0, 1, 0, 0, 0))
                         },
                         new
                         {
                             Id = 9,
-                            CreatedAt = new DateTimeOffset(new DateTime(2021, 10, 20, 12, 3, 58, 72, DateTimeKind.Unspecified).AddTicks(2040), new TimeSpan(0, 1, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2021, 10, 22, 17, 24, 12, 12, DateTimeKind.Unspecified).AddTicks(1456), new TimeSpan(0, 1, 0, 0, 0)),
                             IsDeleted = false,
                             ShelfDescription = "Has the following products",
                             ShelfNumber = "9",
-                            UpdatedAt = new DateTimeOffset(new DateTime(2021, 10, 20, 12, 3, 58, 72, DateTimeKind.Unspecified).AddTicks(2045), new TimeSpan(0, 1, 0, 0, 0))
+                            UpdatedAt = new DateTimeOffset(new DateTime(2021, 10, 22, 17, 24, 12, 12, DateTimeKind.Unspecified).AddTicks(1460), new TimeSpan(0, 1, 0, 0, 0))
                         },
                         new
                         {
                             Id = 10,
-                            CreatedAt = new DateTimeOffset(new DateTime(2021, 10, 20, 12, 3, 58, 72, DateTimeKind.Unspecified).AddTicks(2161), new TimeSpan(0, 1, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2021, 10, 22, 17, 24, 12, 12, DateTimeKind.Unspecified).AddTicks(1467), new TimeSpan(0, 1, 0, 0, 0)),
                             IsDeleted = false,
                             ShelfDescription = "Has the following products",
                             ShelfNumber = "10",
-                            UpdatedAt = new DateTimeOffset(new DateTime(2021, 10, 20, 12, 3, 58, 72, DateTimeKind.Unspecified).AddTicks(2167), new TimeSpan(0, 1, 0, 0, 0))
+                            UpdatedAt = new DateTimeOffset(new DateTime(2021, 10, 22, 17, 24, 12, 12, DateTimeKind.Unspecified).AddTicks(1471), new TimeSpan(0, 1, 0, 0, 0))
                         },
                         new
                         {
                             Id = 11,
-                            CreatedAt = new DateTimeOffset(new DateTime(2021, 10, 20, 12, 3, 58, 72, DateTimeKind.Unspecified).AddTicks(2175), new TimeSpan(0, 1, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2021, 10, 22, 17, 24, 12, 12, DateTimeKind.Unspecified).AddTicks(1478), new TimeSpan(0, 1, 0, 0, 0)),
                             IsDeleted = false,
                             ShelfDescription = "Has the following products",
                             ShelfNumber = "11",
-                            UpdatedAt = new DateTimeOffset(new DateTime(2021, 10, 20, 12, 3, 58, 72, DateTimeKind.Unspecified).AddTicks(2180), new TimeSpan(0, 1, 0, 0, 0))
+                            UpdatedAt = new DateTimeOffset(new DateTime(2021, 10, 22, 17, 24, 12, 12, DateTimeKind.Unspecified).AddTicks(1483), new TimeSpan(0, 1, 0, 0, 0))
                         },
                         new
                         {
                             Id = 12,
-                            CreatedAt = new DateTimeOffset(new DateTime(2021, 10, 20, 12, 3, 58, 72, DateTimeKind.Unspecified).AddTicks(2186), new TimeSpan(0, 1, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2021, 10, 22, 17, 24, 12, 12, DateTimeKind.Unspecified).AddTicks(1489), new TimeSpan(0, 1, 0, 0, 0)),
                             IsDeleted = false,
                             ShelfDescription = "Has the following products",
                             ShelfNumber = "12",
-                            UpdatedAt = new DateTimeOffset(new DateTime(2021, 10, 20, 12, 3, 58, 72, DateTimeKind.Unspecified).AddTicks(2191), new TimeSpan(0, 1, 0, 0, 0))
+                            UpdatedAt = new DateTimeOffset(new DateTime(2021, 10, 22, 17, 24, 12, 12, DateTimeKind.Unspecified).AddTicks(1494), new TimeSpan(0, 1, 0, 0, 0))
                         },
                         new
                         {
                             Id = 13,
-                            CreatedAt = new DateTimeOffset(new DateTime(2021, 10, 20, 12, 3, 58, 72, DateTimeKind.Unspecified).AddTicks(2197), new TimeSpan(0, 1, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2021, 10, 22, 17, 24, 12, 12, DateTimeKind.Unspecified).AddTicks(1500), new TimeSpan(0, 1, 0, 0, 0)),
                             IsDeleted = false,
                             ShelfDescription = "Has the following products",
                             ShelfNumber = "13",
-                            UpdatedAt = new DateTimeOffset(new DateTime(2021, 10, 20, 12, 3, 58, 72, DateTimeKind.Unspecified).AddTicks(2202), new TimeSpan(0, 1, 0, 0, 0))
+                            UpdatedAt = new DateTimeOffset(new DateTime(2021, 10, 22, 17, 24, 12, 12, DateTimeKind.Unspecified).AddTicks(1505), new TimeSpan(0, 1, 0, 0, 0))
                         },
                         new
                         {
                             Id = 14,
-                            CreatedAt = new DateTimeOffset(new DateTime(2021, 10, 20, 12, 3, 58, 72, DateTimeKind.Unspecified).AddTicks(2208), new TimeSpan(0, 1, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2021, 10, 22, 17, 24, 12, 12, DateTimeKind.Unspecified).AddTicks(1510), new TimeSpan(0, 1, 0, 0, 0)),
                             IsDeleted = false,
                             ShelfDescription = "Has the following products",
                             ShelfNumber = "14",
-                            UpdatedAt = new DateTimeOffset(new DateTime(2021, 10, 20, 12, 3, 58, 72, DateTimeKind.Unspecified).AddTicks(2212), new TimeSpan(0, 1, 0, 0, 0))
+                            UpdatedAt = new DateTimeOffset(new DateTime(2021, 10, 22, 17, 24, 12, 12, DateTimeKind.Unspecified).AddTicks(1515), new TimeSpan(0, 1, 0, 0, 0))
                         },
                         new
                         {
                             Id = 15,
-                            CreatedAt = new DateTimeOffset(new DateTime(2021, 10, 20, 12, 3, 58, 72, DateTimeKind.Unspecified).AddTicks(2218), new TimeSpan(0, 1, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2021, 10, 22, 17, 24, 12, 12, DateTimeKind.Unspecified).AddTicks(1523), new TimeSpan(0, 1, 0, 0, 0)),
                             IsDeleted = false,
                             ShelfDescription = "Has the following products",
                             ShelfNumber = "15",
-                            UpdatedAt = new DateTimeOffset(new DateTime(2021, 10, 20, 12, 3, 58, 72, DateTimeKind.Unspecified).AddTicks(2223), new TimeSpan(0, 1, 0, 0, 0))
+                            UpdatedAt = new DateTimeOffset(new DateTime(2021, 10, 22, 17, 24, 12, 12, DateTimeKind.Unspecified).AddTicks(1528), new TimeSpan(0, 1, 0, 0, 0))
                         },
                         new
                         {
                             Id = 16,
-                            CreatedAt = new DateTimeOffset(new DateTime(2021, 10, 20, 12, 3, 58, 72, DateTimeKind.Unspecified).AddTicks(2229), new TimeSpan(0, 1, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2021, 10, 22, 17, 24, 12, 12, DateTimeKind.Unspecified).AddTicks(1534), new TimeSpan(0, 1, 0, 0, 0)),
                             IsDeleted = false,
                             ShelfDescription = "Has the following products",
                             ShelfNumber = "16",
-                            UpdatedAt = new DateTimeOffset(new DateTime(2021, 10, 20, 12, 3, 58, 72, DateTimeKind.Unspecified).AddTicks(2234), new TimeSpan(0, 1, 0, 0, 0))
+                            UpdatedAt = new DateTimeOffset(new DateTime(2021, 10, 22, 17, 24, 12, 12, DateTimeKind.Unspecified).AddTicks(1539), new TimeSpan(0, 1, 0, 0, 0))
                         },
                         new
                         {
                             Id = 17,
-                            CreatedAt = new DateTimeOffset(new DateTime(2021, 10, 20, 12, 3, 58, 72, DateTimeKind.Unspecified).AddTicks(2240), new TimeSpan(0, 1, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2021, 10, 22, 17, 24, 12, 12, DateTimeKind.Unspecified).AddTicks(1545), new TimeSpan(0, 1, 0, 0, 0)),
                             IsDeleted = false,
                             ShelfDescription = "Has the following products",
                             ShelfNumber = "17",
-                            UpdatedAt = new DateTimeOffset(new DateTime(2021, 10, 20, 12, 3, 58, 72, DateTimeKind.Unspecified).AddTicks(2245), new TimeSpan(0, 1, 0, 0, 0))
+                            UpdatedAt = new DateTimeOffset(new DateTime(2021, 10, 22, 17, 24, 12, 12, DateTimeKind.Unspecified).AddTicks(1550), new TimeSpan(0, 1, 0, 0, 0))
                         },
                         new
                         {
                             Id = 18,
-                            CreatedAt = new DateTimeOffset(new DateTime(2021, 10, 20, 12, 3, 58, 72, DateTimeKind.Unspecified).AddTicks(2252), new TimeSpan(0, 1, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2021, 10, 22, 17, 24, 12, 12, DateTimeKind.Unspecified).AddTicks(1556), new TimeSpan(0, 1, 0, 0, 0)),
                             IsDeleted = false,
                             ShelfDescription = "Has the following products",
                             ShelfNumber = "18",
-                            UpdatedAt = new DateTimeOffset(new DateTime(2021, 10, 20, 12, 3, 58, 72, DateTimeKind.Unspecified).AddTicks(2257), new TimeSpan(0, 1, 0, 0, 0))
+                            UpdatedAt = new DateTimeOffset(new DateTime(2021, 10, 22, 17, 24, 12, 12, DateTimeKind.Unspecified).AddTicks(1560), new TimeSpan(0, 1, 0, 0, 0))
                         },
                         new
                         {
                             Id = 19,
-                            CreatedAt = new DateTimeOffset(new DateTime(2021, 10, 20, 12, 3, 58, 72, DateTimeKind.Unspecified).AddTicks(2263), new TimeSpan(0, 1, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2021, 10, 22, 17, 24, 12, 12, DateTimeKind.Unspecified).AddTicks(1566), new TimeSpan(0, 1, 0, 0, 0)),
                             IsDeleted = false,
                             ShelfDescription = "Has the following products",
                             ShelfNumber = "19",
-                            UpdatedAt = new DateTimeOffset(new DateTime(2021, 10, 20, 12, 3, 58, 72, DateTimeKind.Unspecified).AddTicks(2268), new TimeSpan(0, 1, 0, 0, 0))
+                            UpdatedAt = new DateTimeOffset(new DateTime(2021, 10, 22, 17, 24, 12, 12, DateTimeKind.Unspecified).AddTicks(1571), new TimeSpan(0, 1, 0, 0, 0))
                         },
                         new
                         {
                             Id = 20,
-                            CreatedAt = new DateTimeOffset(new DateTime(2021, 10, 20, 12, 3, 58, 72, DateTimeKind.Unspecified).AddTicks(2275), new TimeSpan(0, 1, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2021, 10, 22, 17, 24, 12, 12, DateTimeKind.Unspecified).AddTicks(1577), new TimeSpan(0, 1, 0, 0, 0)),
                             IsDeleted = false,
                             ShelfDescription = "Has the following products",
                             ShelfNumber = "20",
-                            UpdatedAt = new DateTimeOffset(new DateTime(2021, 10, 20, 12, 3, 58, 72, DateTimeKind.Unspecified).AddTicks(2280), new TimeSpan(0, 1, 0, 0, 0))
+                            UpdatedAt = new DateTimeOffset(new DateTime(2021, 10, 22, 17, 24, 12, 12, DateTimeKind.Unspecified).AddTicks(1582), new TimeSpan(0, 1, 0, 0, 0))
                         },
                         new
                         {
                             Id = 21,
-                            CreatedAt = new DateTimeOffset(new DateTime(2021, 10, 20, 12, 3, 58, 72, DateTimeKind.Unspecified).AddTicks(2286), new TimeSpan(0, 1, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2021, 10, 22, 17, 24, 12, 12, DateTimeKind.Unspecified).AddTicks(1587), new TimeSpan(0, 1, 0, 0, 0)),
                             IsDeleted = false,
                             ShelfDescription = "Has the following products",
                             ShelfNumber = "21",
-                            UpdatedAt = new DateTimeOffset(new DateTime(2021, 10, 20, 12, 3, 58, 72, DateTimeKind.Unspecified).AddTicks(2291), new TimeSpan(0, 1, 0, 0, 0))
+                            UpdatedAt = new DateTimeOffset(new DateTime(2021, 10, 22, 17, 24, 12, 12, DateTimeKind.Unspecified).AddTicks(1592), new TimeSpan(0, 1, 0, 0, 0))
                         },
                         new
                         {
                             Id = 22,
-                            CreatedAt = new DateTimeOffset(new DateTime(2021, 10, 20, 12, 3, 58, 72, DateTimeKind.Unspecified).AddTicks(2298), new TimeSpan(0, 1, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2021, 10, 22, 17, 24, 12, 12, DateTimeKind.Unspecified).AddTicks(1602), new TimeSpan(0, 1, 0, 0, 0)),
                             IsDeleted = false,
                             ShelfDescription = "Has the following products",
                             ShelfNumber = "22",
-                            UpdatedAt = new DateTimeOffset(new DateTime(2021, 10, 20, 12, 3, 58, 72, DateTimeKind.Unspecified).AddTicks(2303), new TimeSpan(0, 1, 0, 0, 0))
+                            UpdatedAt = new DateTimeOffset(new DateTime(2021, 10, 22, 17, 24, 12, 12, DateTimeKind.Unspecified).AddTicks(1607), new TimeSpan(0, 1, 0, 0, 0))
                         },
                         new
                         {
                             Id = 23,
-                            CreatedAt = new DateTimeOffset(new DateTime(2021, 10, 20, 12, 3, 58, 72, DateTimeKind.Unspecified).AddTicks(2309), new TimeSpan(0, 1, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2021, 10, 22, 17, 24, 12, 12, DateTimeKind.Unspecified).AddTicks(1613), new TimeSpan(0, 1, 0, 0, 0)),
                             IsDeleted = false,
                             ShelfDescription = "Has the following products",
                             ShelfNumber = "23",
-                            UpdatedAt = new DateTimeOffset(new DateTime(2021, 10, 20, 12, 3, 58, 72, DateTimeKind.Unspecified).AddTicks(2314), new TimeSpan(0, 1, 0, 0, 0))
+                            UpdatedAt = new DateTimeOffset(new DateTime(2021, 10, 22, 17, 24, 12, 12, DateTimeKind.Unspecified).AddTicks(1618), new TimeSpan(0, 1, 0, 0, 0))
                         },
                         new
                         {
                             Id = 24,
-                            CreatedAt = new DateTimeOffset(new DateTime(2021, 10, 20, 12, 3, 58, 72, DateTimeKind.Unspecified).AddTicks(2320), new TimeSpan(0, 1, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2021, 10, 22, 17, 24, 12, 12, DateTimeKind.Unspecified).AddTicks(1623), new TimeSpan(0, 1, 0, 0, 0)),
                             IsDeleted = false,
                             ShelfDescription = "Has the following products",
                             ShelfNumber = "24",
-                            UpdatedAt = new DateTimeOffset(new DateTime(2021, 10, 20, 12, 3, 58, 72, DateTimeKind.Unspecified).AddTicks(2325), new TimeSpan(0, 1, 0, 0, 0))
+                            UpdatedAt = new DateTimeOffset(new DateTime(2021, 10, 22, 17, 24, 12, 12, DateTimeKind.Unspecified).AddTicks(1628), new TimeSpan(0, 1, 0, 0, 0))
                         },
                         new
                         {
                             Id = 25,
-                            CreatedAt = new DateTimeOffset(new DateTime(2021, 10, 20, 12, 3, 58, 72, DateTimeKind.Unspecified).AddTicks(2332), new TimeSpan(0, 1, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2021, 10, 22, 17, 24, 12, 12, DateTimeKind.Unspecified).AddTicks(1634), new TimeSpan(0, 1, 0, 0, 0)),
                             IsDeleted = false,
                             ShelfDescription = "Has the following products",
                             ShelfNumber = "25",
-                            UpdatedAt = new DateTimeOffset(new DateTime(2021, 10, 20, 12, 3, 58, 72, DateTimeKind.Unspecified).AddTicks(2337), new TimeSpan(0, 1, 0, 0, 0))
+                            UpdatedAt = new DateTimeOffset(new DateTime(2021, 10, 22, 17, 24, 12, 12, DateTimeKind.Unspecified).AddTicks(1640), new TimeSpan(0, 1, 0, 0, 0))
                         },
                         new
                         {
                             Id = 26,
-                            CreatedAt = new DateTimeOffset(new DateTime(2021, 10, 20, 12, 3, 58, 72, DateTimeKind.Unspecified).AddTicks(2343), new TimeSpan(0, 1, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2021, 10, 22, 17, 24, 12, 12, DateTimeKind.Unspecified).AddTicks(1645), new TimeSpan(0, 1, 0, 0, 0)),
                             IsDeleted = false,
                             ShelfDescription = "Has the following products",
                             ShelfNumber = "26",
-                            UpdatedAt = new DateTimeOffset(new DateTime(2021, 10, 20, 12, 3, 58, 72, DateTimeKind.Unspecified).AddTicks(2348), new TimeSpan(0, 1, 0, 0, 0))
+                            UpdatedAt = new DateTimeOffset(new DateTime(2021, 10, 22, 17, 24, 12, 12, DateTimeKind.Unspecified).AddTicks(1650), new TimeSpan(0, 1, 0, 0, 0))
                         },
                         new
                         {
                             Id = 27,
-                            CreatedAt = new DateTimeOffset(new DateTime(2021, 10, 20, 12, 3, 58, 72, DateTimeKind.Unspecified).AddTicks(2354), new TimeSpan(0, 1, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2021, 10, 22, 17, 24, 12, 12, DateTimeKind.Unspecified).AddTicks(1656), new TimeSpan(0, 1, 0, 0, 0)),
                             IsDeleted = false,
                             ShelfDescription = "Has the following products",
                             ShelfNumber = "27",
-                            UpdatedAt = new DateTimeOffset(new DateTime(2021, 10, 20, 12, 3, 58, 72, DateTimeKind.Unspecified).AddTicks(2359), new TimeSpan(0, 1, 0, 0, 0))
+                            UpdatedAt = new DateTimeOffset(new DateTime(2021, 10, 22, 17, 24, 12, 12, DateTimeKind.Unspecified).AddTicks(1661), new TimeSpan(0, 1, 0, 0, 0))
                         },
                         new
                         {
                             Id = 28,
-                            CreatedAt = new DateTimeOffset(new DateTime(2021, 10, 20, 12, 3, 58, 72, DateTimeKind.Unspecified).AddTicks(2365), new TimeSpan(0, 1, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2021, 10, 22, 17, 24, 12, 12, DateTimeKind.Unspecified).AddTicks(1667), new TimeSpan(0, 1, 0, 0, 0)),
                             IsDeleted = false,
                             ShelfDescription = "Has the following products",
                             ShelfNumber = "28",
-                            UpdatedAt = new DateTimeOffset(new DateTime(2021, 10, 20, 12, 3, 58, 72, DateTimeKind.Unspecified).AddTicks(2370), new TimeSpan(0, 1, 0, 0, 0))
+                            UpdatedAt = new DateTimeOffset(new DateTime(2021, 10, 22, 17, 24, 12, 12, DateTimeKind.Unspecified).AddTicks(1672), new TimeSpan(0, 1, 0, 0, 0))
                         },
                         new
                         {
                             Id = 29,
-                            CreatedAt = new DateTimeOffset(new DateTime(2021, 10, 20, 12, 3, 58, 72, DateTimeKind.Unspecified).AddTicks(2376), new TimeSpan(0, 1, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2021, 10, 22, 17, 24, 12, 12, DateTimeKind.Unspecified).AddTicks(1678), new TimeSpan(0, 1, 0, 0, 0)),
                             IsDeleted = false,
                             ShelfDescription = "Has the following products",
                             ShelfNumber = "29",
-                            UpdatedAt = new DateTimeOffset(new DateTime(2021, 10, 20, 12, 3, 58, 72, DateTimeKind.Unspecified).AddTicks(2381), new TimeSpan(0, 1, 0, 0, 0))
+                            UpdatedAt = new DateTimeOffset(new DateTime(2021, 10, 22, 17, 24, 12, 12, DateTimeKind.Unspecified).AddTicks(1683), new TimeSpan(0, 1, 0, 0, 0))
                         },
                         new
                         {
                             Id = 30,
-                            CreatedAt = new DateTimeOffset(new DateTime(2021, 10, 20, 12, 3, 58, 72, DateTimeKind.Unspecified).AddTicks(2388), new TimeSpan(0, 1, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2021, 10, 22, 17, 24, 12, 12, DateTimeKind.Unspecified).AddTicks(1689), new TimeSpan(0, 1, 0, 0, 0)),
                             IsDeleted = false,
                             ShelfDescription = "Has the following products",
                             ShelfNumber = "30",
-                            UpdatedAt = new DateTimeOffset(new DateTime(2021, 10, 20, 12, 3, 58, 72, DateTimeKind.Unspecified).AddTicks(2392), new TimeSpan(0, 1, 0, 0, 0))
+                            UpdatedAt = new DateTimeOffset(new DateTime(2021, 10, 22, 17, 24, 12, 12, DateTimeKind.Unspecified).AddTicks(1693), new TimeSpan(0, 1, 0, 0, 0))
                         },
                         new
                         {
                             Id = 31,
-                            CreatedAt = new DateTimeOffset(new DateTime(2021, 10, 20, 12, 3, 58, 72, DateTimeKind.Unspecified).AddTicks(2398), new TimeSpan(0, 1, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2021, 10, 22, 17, 24, 12, 12, DateTimeKind.Unspecified).AddTicks(1700), new TimeSpan(0, 1, 0, 0, 0)),
                             IsDeleted = false,
                             ShelfDescription = "Has the following products",
                             ShelfNumber = "31",
-                            UpdatedAt = new DateTimeOffset(new DateTime(2021, 10, 20, 12, 3, 58, 72, DateTimeKind.Unspecified).AddTicks(2403), new TimeSpan(0, 1, 0, 0, 0))
+                            UpdatedAt = new DateTimeOffset(new DateTime(2021, 10, 22, 17, 24, 12, 12, DateTimeKind.Unspecified).AddTicks(1704), new TimeSpan(0, 1, 0, 0, 0))
                         },
                         new
                         {
                             Id = 32,
-                            CreatedAt = new DateTimeOffset(new DateTime(2021, 10, 20, 12, 3, 58, 72, DateTimeKind.Unspecified).AddTicks(2409), new TimeSpan(0, 1, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2021, 10, 22, 17, 24, 12, 12, DateTimeKind.Unspecified).AddTicks(1710), new TimeSpan(0, 1, 0, 0, 0)),
                             IsDeleted = false,
                             ShelfDescription = "Has the following products",
                             ShelfNumber = "32",
-                            UpdatedAt = new DateTimeOffset(new DateTime(2021, 10, 20, 12, 3, 58, 72, DateTimeKind.Unspecified).AddTicks(2413), new TimeSpan(0, 1, 0, 0, 0))
+                            UpdatedAt = new DateTimeOffset(new DateTime(2021, 10, 22, 17, 24, 12, 12, DateTimeKind.Unspecified).AddTicks(1715), new TimeSpan(0, 1, 0, 0, 0))
                         },
                         new
                         {
                             Id = 33,
-                            CreatedAt = new DateTimeOffset(new DateTime(2021, 10, 20, 12, 3, 58, 72, DateTimeKind.Unspecified).AddTicks(2419), new TimeSpan(0, 1, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2021, 10, 22, 17, 24, 12, 12, DateTimeKind.Unspecified).AddTicks(1721), new TimeSpan(0, 1, 0, 0, 0)),
                             IsDeleted = false,
                             ShelfDescription = "Has the following products",
                             ShelfNumber = "33",
-                            UpdatedAt = new DateTimeOffset(new DateTime(2021, 10, 20, 12, 3, 58, 72, DateTimeKind.Unspecified).AddTicks(2424), new TimeSpan(0, 1, 0, 0, 0))
+                            UpdatedAt = new DateTimeOffset(new DateTime(2021, 10, 22, 17, 24, 12, 12, DateTimeKind.Unspecified).AddTicks(1725), new TimeSpan(0, 1, 0, 0, 0))
                         },
                         new
                         {
                             Id = 34,
-                            CreatedAt = new DateTimeOffset(new DateTime(2021, 10, 20, 12, 3, 58, 72, DateTimeKind.Unspecified).AddTicks(2430), new TimeSpan(0, 1, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2021, 10, 22, 17, 24, 12, 12, DateTimeKind.Unspecified).AddTicks(1834), new TimeSpan(0, 1, 0, 0, 0)),
                             IsDeleted = false,
                             ShelfDescription = "Has the following products",
                             ShelfNumber = "34",
-                            UpdatedAt = new DateTimeOffset(new DateTime(2021, 10, 20, 12, 3, 58, 72, DateTimeKind.Unspecified).AddTicks(2435), new TimeSpan(0, 1, 0, 0, 0))
+                            UpdatedAt = new DateTimeOffset(new DateTime(2021, 10, 22, 17, 24, 12, 12, DateTimeKind.Unspecified).AddTicks(1840), new TimeSpan(0, 1, 0, 0, 0))
                         },
                         new
                         {
                             Id = 35,
-                            CreatedAt = new DateTimeOffset(new DateTime(2021, 10, 20, 12, 3, 58, 72, DateTimeKind.Unspecified).AddTicks(2441), new TimeSpan(0, 1, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2021, 10, 22, 17, 24, 12, 12, DateTimeKind.Unspecified).AddTicks(1847), new TimeSpan(0, 1, 0, 0, 0)),
                             IsDeleted = false,
                             ShelfDescription = "Has the following products",
                             ShelfNumber = "35",
-                            UpdatedAt = new DateTimeOffset(new DateTime(2021, 10, 20, 12, 3, 58, 72, DateTimeKind.Unspecified).AddTicks(2445), new TimeSpan(0, 1, 0, 0, 0))
+                            UpdatedAt = new DateTimeOffset(new DateTime(2021, 10, 22, 17, 24, 12, 12, DateTimeKind.Unspecified).AddTicks(1852), new TimeSpan(0, 1, 0, 0, 0))
                         },
                         new
                         {
                             Id = 36,
-                            CreatedAt = new DateTimeOffset(new DateTime(2021, 10, 20, 12, 3, 58, 72, DateTimeKind.Unspecified).AddTicks(2451), new TimeSpan(0, 1, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2021, 10, 22, 17, 24, 12, 12, DateTimeKind.Unspecified).AddTicks(1858), new TimeSpan(0, 1, 0, 0, 0)),
                             IsDeleted = false,
                             ShelfDescription = "Has the following products",
                             ShelfNumber = "36",
-                            UpdatedAt = new DateTimeOffset(new DateTime(2021, 10, 20, 12, 3, 58, 72, DateTimeKind.Unspecified).AddTicks(2456), new TimeSpan(0, 1, 0, 0, 0))
+                            UpdatedAt = new DateTimeOffset(new DateTime(2021, 10, 22, 17, 24, 12, 12, DateTimeKind.Unspecified).AddTicks(1863), new TimeSpan(0, 1, 0, 0, 0))
                         },
                         new
                         {
                             Id = 37,
-                            CreatedAt = new DateTimeOffset(new DateTime(2021, 10, 20, 12, 3, 58, 72, DateTimeKind.Unspecified).AddTicks(2462), new TimeSpan(0, 1, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2021, 10, 22, 17, 24, 12, 12, DateTimeKind.Unspecified).AddTicks(1869), new TimeSpan(0, 1, 0, 0, 0)),
                             IsDeleted = false,
                             ShelfDescription = "Has the following products",
                             ShelfNumber = "37",
-                            UpdatedAt = new DateTimeOffset(new DateTime(2021, 10, 20, 12, 3, 58, 72, DateTimeKind.Unspecified).AddTicks(2467), new TimeSpan(0, 1, 0, 0, 0))
+                            UpdatedAt = new DateTimeOffset(new DateTime(2021, 10, 22, 17, 24, 12, 12, DateTimeKind.Unspecified).AddTicks(1874), new TimeSpan(0, 1, 0, 0, 0))
                         },
                         new
                         {
                             Id = 38,
-                            CreatedAt = new DateTimeOffset(new DateTime(2021, 10, 20, 12, 3, 58, 72, DateTimeKind.Unspecified).AddTicks(2473), new TimeSpan(0, 1, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2021, 10, 22, 17, 24, 12, 12, DateTimeKind.Unspecified).AddTicks(1880), new TimeSpan(0, 1, 0, 0, 0)),
                             IsDeleted = false,
                             ShelfDescription = "Has the following products",
                             ShelfNumber = "38",
-                            UpdatedAt = new DateTimeOffset(new DateTime(2021, 10, 20, 12, 3, 58, 72, DateTimeKind.Unspecified).AddTicks(2478), new TimeSpan(0, 1, 0, 0, 0))
+                            UpdatedAt = new DateTimeOffset(new DateTime(2021, 10, 22, 17, 24, 12, 12, DateTimeKind.Unspecified).AddTicks(1884), new TimeSpan(0, 1, 0, 0, 0))
                         },
                         new
                         {
                             Id = 39,
-                            CreatedAt = new DateTimeOffset(new DateTime(2021, 10, 20, 12, 3, 58, 72, DateTimeKind.Unspecified).AddTicks(2485), new TimeSpan(0, 1, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2021, 10, 22, 17, 24, 12, 12, DateTimeKind.Unspecified).AddTicks(1890), new TimeSpan(0, 1, 0, 0, 0)),
                             IsDeleted = false,
                             ShelfDescription = "Has the following products",
                             ShelfNumber = "39",
-                            UpdatedAt = new DateTimeOffset(new DateTime(2021, 10, 20, 12, 3, 58, 72, DateTimeKind.Unspecified).AddTicks(2489), new TimeSpan(0, 1, 0, 0, 0))
+                            UpdatedAt = new DateTimeOffset(new DateTime(2021, 10, 22, 17, 24, 12, 12, DateTimeKind.Unspecified).AddTicks(1895), new TimeSpan(0, 1, 0, 0, 0))
                         },
                         new
                         {
                             Id = 40,
-                            CreatedAt = new DateTimeOffset(new DateTime(2021, 10, 20, 12, 3, 58, 72, DateTimeKind.Unspecified).AddTicks(2496), new TimeSpan(0, 1, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2021, 10, 22, 17, 24, 12, 12, DateTimeKind.Unspecified).AddTicks(1901), new TimeSpan(0, 1, 0, 0, 0)),
                             IsDeleted = false,
                             ShelfDescription = "Has the following products",
                             ShelfNumber = "40",
-                            UpdatedAt = new DateTimeOffset(new DateTime(2021, 10, 20, 12, 3, 58, 72, DateTimeKind.Unspecified).AddTicks(2501), new TimeSpan(0, 1, 0, 0, 0))
+                            UpdatedAt = new DateTimeOffset(new DateTime(2021, 10, 22, 17, 24, 12, 12, DateTimeKind.Unspecified).AddTicks(1906), new TimeSpan(0, 1, 0, 0, 0))
                         },
                         new
                         {
                             Id = 41,
-                            CreatedAt = new DateTimeOffset(new DateTime(2021, 10, 20, 12, 3, 58, 72, DateTimeKind.Unspecified).AddTicks(2508), new TimeSpan(0, 1, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2021, 10, 22, 17, 24, 12, 12, DateTimeKind.Unspecified).AddTicks(1912), new TimeSpan(0, 1, 0, 0, 0)),
                             IsDeleted = false,
                             ShelfDescription = "Has the following products",
                             ShelfNumber = "41",
-                            UpdatedAt = new DateTimeOffset(new DateTime(2021, 10, 20, 12, 3, 58, 72, DateTimeKind.Unspecified).AddTicks(2512), new TimeSpan(0, 1, 0, 0, 0))
+                            UpdatedAt = new DateTimeOffset(new DateTime(2021, 10, 22, 17, 24, 12, 12, DateTimeKind.Unspecified).AddTicks(1917), new TimeSpan(0, 1, 0, 0, 0))
                         },
                         new
                         {
                             Id = 42,
-                            CreatedAt = new DateTimeOffset(new DateTime(2021, 10, 20, 12, 3, 58, 72, DateTimeKind.Unspecified).AddTicks(2519), new TimeSpan(0, 1, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2021, 10, 22, 17, 24, 12, 12, DateTimeKind.Unspecified).AddTicks(1923), new TimeSpan(0, 1, 0, 0, 0)),
                             IsDeleted = false,
                             ShelfDescription = "Has the following products",
                             ShelfNumber = "42",
-                            UpdatedAt = new DateTimeOffset(new DateTime(2021, 10, 20, 12, 3, 58, 72, DateTimeKind.Unspecified).AddTicks(2523), new TimeSpan(0, 1, 0, 0, 0))
+                            UpdatedAt = new DateTimeOffset(new DateTime(2021, 10, 22, 17, 24, 12, 12, DateTimeKind.Unspecified).AddTicks(1927), new TimeSpan(0, 1, 0, 0, 0))
                         });
                 });
 

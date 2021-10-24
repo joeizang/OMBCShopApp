@@ -12,10 +12,10 @@ namespace OBMCShopApp.Models
         public int Id { get; set; }
 
         [StringLength(50)]
-        public string? CreatedBy { get; set; }
+        public string CreatedBy { get; set; }
 
         [StringLength(50)]
-        public string? UpdatedBy { get; set; }
+        public string UpdatedBy { get; set; }
 
         public bool IsDeleted { get; set; }
     }

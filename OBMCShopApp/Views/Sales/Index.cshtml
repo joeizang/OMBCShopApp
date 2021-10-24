@@ -1,23 +1,14 @@
-@model IEnumerable<OBMCShopApp.ViewModels.ProductIndexViewModel>
-@using Microsoft.AspNetCore.Identity
-@inject SignInManager<ApplicationUser> SignInManager
-@inject UserManager<ApplicationUser> UserManager
+@model IEnumerable<OBMCShopApp.ViewModels.SalesIndexViewModel>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewBag.Title = "title";
+    Layout = "_Layout";
 }
 
-@if (UserManager.Users.Any(u => !u.UserName.Equals("admin@obmc.com") || u.UserName.Equals("owner@obmc.com")))
-{
-    <h1 class="h1 text-danger">You are not allowed to view this page!!</h1>
-}
-else
-{
-    
-    <h1>Index</h1>
+<h2 class="h2 text-center"> Sales Summary</h2>
 
-    <p>
-        <a asp-controller="Products" asp-action="Create">Create New</a>
+<p>
+        <a asp-controller="Sales" asp-action="Create">Create New</a>
     </p>
 
     <ejs-grid id="Grid" dataSource="Model" allowPaging="true" allowSorting="true">
@@ -31,4 +22,3 @@ else
             </e-grid-columns>
         </e-grid-columns>
     </ejs-grid>
-}

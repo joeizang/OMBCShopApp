@@ -9,9 +9,9 @@ namespace OBMCShopApp.Models
             Products = new List<Product>();
         }
 
-        public string? ShelfNumber { get; set; }
+        public string ShelfNumber { get; set; }
 
-        public string? ShelfDescription { get; set; }
+        public string ShelfDescription { get; set; }
 
         public List<Product> Products { get; set; }
     }

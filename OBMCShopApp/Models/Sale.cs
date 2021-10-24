@@ -7,7 +7,7 @@ namespace OBMCShopApp.Models
     {
         public Sale()
         {
-            ItemsSold = new List<Product>();
+            ItemsSold = new List<ProductSold>();
         }
         public DateTimeOffset SaleDate { get; set; }
 
@@ -21,6 +21,6 @@ namespace OBMCShopApp.Models
 
         public PaymentType ModeOfPayment { get; set; }
 
-        public List<Product> ItemsSold { get; set; } //this should be itemSold not product. Product quantities should be updated  when a sale is made.
+        public List<ProductSold> ItemsSold { get; set; } //this should be itemSold not product. Product quantities should be updated  when a sale is made.
     }
 }

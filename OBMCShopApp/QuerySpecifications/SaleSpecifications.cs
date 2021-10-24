@@ -8,7 +8,6 @@ namespace OBMCShopApp.QuerySpecifications.Product
         public FindSaleByDate(DateTimeOffset saleDate)
         {
             Query.AsNoTracking().Include(s => s.ItemsSold)
-                .ThenInclude(p => p.ProductShelf)
                 .Where(s => s.SaleDate == saleDate);
         }
     }

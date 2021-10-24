@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using OBMCShopApp.Models;
@@ -20,6 +21,8 @@ namespace OBMCShopApp.Data
 
         public DbSet<Product> Products { get; set; }
 
+        public DbSet<ProductSold> ProductsSold { get; set; }
+
         public DbSet<Sale> Sales { get; set; }
 
         public DbSet<Shelf> Shelves { get; set; }
@@ -33,6 +36,11 @@ namespace OBMCShopApp.Data
                 .HasQueryFilter(x => !x.IsDeleted);
             builder.Entity<Shelf>()
                 .HasQueryFilter(s => !s.IsDeleted);
+            builder.Entity<ProductSold>()
+                .HasQueryFilter(p => p.IsDeleted);
+            // SEED ROLES FOR APPLICATION
+            
+            
             builder.Entity<Shelf>()
                 .HasData(
                     new Shelf

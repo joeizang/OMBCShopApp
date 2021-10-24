@@ -1,0 +1,103 @@
+@using OBMCShopApp.ViewModels
+@* @using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage *@
+@* @inject ProtectedLocalStorage BrowserStorage *@
+@inject AuthenticationStateProvider AuthenticationStateProvider
+
+
+<div class="row">
+    <div class="col-4 mb-3 ml-3 ml-sm-2 col-sm-2 d-flex">
+        <div class="card shadow d-flex" style="border: @(_borderSwitch ? _switch : ""); width: 23rem;">
+            <h3 class="card-title card-headings pt-1 font-weight-bolder text-dark text-center">Broom</h3>
+            <span class="card-headings place-price h4 p-2 font-weight-bolder text-dark bg-secondary rounded" id="price">
+                =N= @price.ToString("N1")
+            </span>
+            <button class="btn btn-info rounded m-1 font-weight-bolder" @onclick="@(() => AddOrderedItem())">Add</button>
+        </div>
+    </div>
+    <div class="col-4 mb-3 ml-3 ml-sm-2 col-sm-2 d-flex">
+        <div class="card shadow d-flex" style="border: @(_borderSwitch ? _switch : ""); width: 23rem;">
+            <h3 class="card-title card-headings pt-1 font-weight-bolder text-dark text-center">Broom</h3>
+            <span class="card-headings place-price h4 p-2 font-weight-bolder text-dark bg-secondary rounded" id="price">
+                =N= @price.ToString("N1")
+            </span>
+            <button class="btn btn-info rounded m-1 font-weight-bolder" @onclick="@(() => AddOrderedItem())">Add</button>
+        </div>
+    </div>
+    <div class="col-4 mb-3 ml-3 ml-sm-2 col-sm-2 d-flex">
+        <div class="card shadow d-flex" style="border: @(_borderSwitch ? _switch : ""); width: 23rem;">
+            <h3 class="card-title card-headings pt-1 font-weight-bolder text-dark text-center">Broom</h3>
+            <span class="card-headings place-price h4 p-2 font-weight-bolder text-dark bg-secondary rounded" id="price">
+                =N= @price.ToString("N1")
+            </span>
+            <button class="btn btn-info rounded m-1 font-weight-bolder" @onclick="@(() => AddOrderedItem())">Add</button>
+        </div>
+    </div>
+    <div class="col-4 mb-3 ml-3 ml-sm-2 col-sm-2 d-flex">
+        <div class="card shadow d-flex" style="border: @(_borderSwitch ? _switch : ""); width: 23rem;">
+            <h3 class="card-title card-headings pt-1 font-weight-bolder text-dark text-center">Broom</h3>
+            <span class="card-headings place-price h4 p-2 font-weight-bolder text-dark bg-secondary rounded" id="price">
+                =N= @price.ToString("N1")
+            </span>
+            <button class="btn btn-info rounded m-1 font-weight-bolder" @onclick="@(() => AddOrderedItem())">Add</button>
+        </div>
+    </div>
+    <div class="col-4 mb-3 ml-3 ml-sm-2 col-sm-2 d-flex">
+        <div class="card shadow d-flex" style="border: @(_borderSwitch ? _switch : ""); width: 23rem;">
+            <h3 class="card-title card-headings pt-1 font-weight-bolder text-dark text-center">Broom</h3>
+            <span class="card-headings place-price h4 p-2 font-weight-bolder text-dark bg-secondary rounded" id="price">
+                =N= @price.ToString("N1")
+            </span>
+            <button class="btn btn-info rounded m-1 font-weight-bolder" @onclick="@(() => AddOrderedItem())">Add</button>
+        </div>
+    </div>
+    <div class="col-4 mb-3 ml-3 ml-sm-2 col-sm-2 d-flex">
+        <div class="card shadow d-flex" style="border: @(_borderSwitch ? _switch : ""); width: 23rem;">
+            <h3 class="card-title card-headings pt-1 font-weight-bolder text-dark text-center">Broom</h3>
+            <span class="card-headings place-price h4 p-2 font-weight-bolder text-dark bg-secondary rounded" id="price">
+                =N= @price.ToString("N1")
+            </span>
+            <button class="btn btn-info rounded m-1 font-weight-bolder" @onclick="@(() => AddOrderedItem())">Add</button>
+        </div>
+    </div>
+    <div class="col-4 mb-3 ml-3 ml-sm-2 col-sm-2 d-flex">
+        <div class="card shadow d-flex" style="border: @(_borderSwitch ? _switch : ""); width: 23rem;">
+            <h3 class="card-title card-headings pt-1 font-weight-bolder text-dark text-center">Broom</h3>
+            <span class="card-headings place-price h4 p-2 font-weight-bolder text-dark bg-secondary rounded" id="price">
+                =N= @price.ToString("N1")
+            </span>
+            <button class="btn btn-info rounded m-1 font-weight-bolder" @onclick="@(() => AddOrderedItem())">Add</button>
+        </div>
+    </div>
+    <div class="col-4 mb-3 ml-3 ml-sm-2 col-sm-2 d-flex">
+        <div class="card shadow d-flex" style="border: @(_borderSwitch ? _switch : ""); width: 23rem;">
+            <h3 class="card-title card-headings pt-1 font-weight-bolder text-dark text-center">Broom</h3>
+            <span class="card-headings place-price h4 p-2 font-weight-bolder text-dark bg-secondary rounded" id="price">
+                =N= @price.ToString("N1")
+            </span>
+            <button class="btn btn-info rounded m-1 font-weight-bolder" @onclick="@(() => AddOrderedItem())">Add</button>
+        </div>
+    </div>
+    
+    
+</div>
+
+
+@code
+{
+    decimal price = 300.00m;
+    private bool _borderSwitch = false;
+
+    private string _switch = "3px solid red";
+
+    public AuthenticationState AuthState { get; set; }
+    
+    protected override async Task OnInitializedAsync()
+    {
+        AuthState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+    }
+
+    private void AddOrderedItem()
+    {
+        Console.WriteLine("Add button clicked!!!");
+    }
+}

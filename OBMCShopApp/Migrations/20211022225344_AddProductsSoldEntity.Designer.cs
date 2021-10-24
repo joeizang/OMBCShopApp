@@ -2,15 +2,17 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using OBMCShopApp.Data;
 
 namespace OBMCShopApp.Migrations
 {
     [DbContext(typeof(OBMCShopAppContext))]
-    partial class OBMCShopAppContextModelSnapshot : ModelSnapshot
+    [Migration("20211022225344_AddProductsSoldEntity")]
+    partial class AddProductsSoldEntity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

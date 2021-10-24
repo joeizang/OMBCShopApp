@@ -1,0 +1,25 @@
+@model OBMCShopApp.ViewModels.CreateSaleInputModel
+@using OBMCShopApp.Views
+
+@{
+    ViewBag.Title = "title";
+    Layout = "_Layout";
+}
+
+<div class="d-flex justify-content-between align-items-center">
+    <div></div>
+    <div><h2 class="h2 text-center">Make A Sale</h2></div>
+    <div class="mr-4"><component type="typeof(OBMCShopApp.Components.SaleCheckoutOverview)" render-mode="Server"/></div>
+</div>
+
+<hr />
+<div class="row scrollableSection">
+    <component render-mode="Server" type="typeof(OBMCShopApp.Components.MakeSaleLayout)"/>
+</div>
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script>
+    
+    </script>
+}
+

@@ -1,10 +1,13 @@
 using System;
+using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
+using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using OBMCShopApp.Models;
+using OBMCShopApp.Notifications.ProductsNotifications;
 using OBMCShopApp.QuerySpecifications.Product;
 using OBMCShopApp.Services;
 using OBMCShopApp.ViewModels;
@@ -17,12 +20,17 @@ namespace OBMCShopApp.Controllers
         private readonly IProductDataService _service;
         private readonly IShelfDataService _dataAccess;
         private readonly IMapper _mapper;
+        private readonly IMediator _mediator;
 
-        public ProductsController(IProductDataService service, IShelfDataService shelfDataService, IMapper mapper)
+        public ProductsController(IProductDataService service, 
+            IShelfDataService shelfDataService, 
+            IMapper mapper,
+            IMediator mediator)
         {
             _service = service;
             _dataAccess = shelfDataService;
             _mapper = mapper;
+            _mediator = mediator;
         }
         // GET
         public async Task<IActionResult> Index()
@@ -69,6 +77,13 @@ namespace OBMCShopApp.Controllers
             {
                 _service.CreateOne(product);
                 await _service.Commit().ConfigureAwait(false);
+                await _mediator.Publish(new ProductAdded
+                {
+                    Product = product,
+                    AddedBy = HttpContext.User?.Identity?.Name,
+                    AddedWhen = DateTimeOffset.Now
+                }, CancellationToken.None)
+                    .ConfigureAwait(false);
                 return View("Index");
             }
             catch (Exception e)
@@ -95,7 +110,6 @@ namespace OBMCShopApp.Controllers
         [HttpPost]
         public async Task<ActionResult> UpdateProduct(ProductCreateInputModel model)
         {
-            
             return View("Edit");
         }
         

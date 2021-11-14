@@ -65,4 +65,33 @@ namespace OBMCShopApp.Notifications.ProductsNotifications
             }
         }
     }
+    
+    public class ProductDeletedHandler : INotificationHandler<ProductDeleted>
+    {
+        private readonly IDataService<ProductSold> _service;
+
+        public ProductDeletedHandler(IDataService<ProductSold> service)
+        {
+            _service = service;
+        }
+        public async Task Handle(ProductDeleted notification, CancellationToken cancellationToken)
+        {
+            if (notification is null)
+                throw new ArgumentNullException("ProductDeleted Notification is null which is illegal!");
+            
+            try
+            {
+                _service.DeleteOne(new ProductSold
+                {
+                    Id = notification.ProductId
+                });
+                await _service.Commit().ConfigureAwait(false);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+        }
+    }
 }

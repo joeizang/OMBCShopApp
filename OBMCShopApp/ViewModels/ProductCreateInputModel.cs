@@ -8,6 +8,10 @@ namespace OBMCShopApp.ViewModels
 {
     public class ProductCreateInputModel
     {
+        public ProductCreateInputModel()
+        {
+            Shelves = new List<ShelfViewModel>();
+        }
         [Required]
         [StringLength(50)]
         [Display(Name = "Product Name")]

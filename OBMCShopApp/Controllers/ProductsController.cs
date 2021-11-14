@@ -5,10 +5,9 @@ using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using OBMCShopApp.Models;
 using OBMCShopApp.Notifications.ProductsNotifications;
-using OBMCShopApp.QuerySpecifications.Product;
+using OBMCShopApp.QuerySpecifications;
 using OBMCShopApp.Services;
 using OBMCShopApp.ViewModels;
 
@@ -59,23 +58,9 @@ namespace OBMCShopApp.Controllers
                     "Error", "Your submission has errors or You are trying to create a Product that exists already!");
                 return View();
             }
-
-            var product = new Product
-            {
-                Name = model.Name,
-                Brand = model.Brand,
-                CostPrice = model.CostPrice,
-                RetailPrice = model.RetailPrice,
-                Comments = model.Comments,
-                ShelfId = model.ShelfId,
-                Quantity = model.Quantity,
-                SupplyDate = model.SupplyDate,
-                UnitMeasure = model.UnitMeasure
-            };
-
             try
             {
-                _service.CreateOne(product);
+                var product = _service.CreateProduct(model,_service);
                 await _service.Commit().ConfigureAwait(false);
                 await _mediator.Publish(new ProductAdded
                 {
@@ -96,7 +81,6 @@ namespace OBMCShopApp.Controllers
         [HttpGet("products/update-product/{id:int}")]
         public async Task<ActionResult> UpdateProduct(int id)
         {
-            // TODO: Move mapping logic deeper into the service types.
             var getProduct = await _service.GetOne(id).ConfigureAwait(false);
             var shelves = await _dataAccess.GetShelfNumbers()
                 .ConfigureAwait(false);
@@ -108,9 +92,55 @@ namespace OBMCShopApp.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> UpdateProduct(ProductCreateInputModel model)
+        public async Task<ActionResult> UpdateProduct(int productId, ProductUpdateViewModel model)
         {
-            return View("Edit");
+            var targetProduct = await _service.GetOne(productId).ConfigureAwait(false);
+            if (targetProduct is null)
+            {
+                ModelState.AddModelError("Update Error", $"The id {productId} does not belong to a real product!");
+                return View("Edit", model);
+            }
+            try
+            {
+                var product = _service.UpdateProduct(targetProduct, model, _service);
+                await _service.Commit().ConfigureAwait(false);
+                await _mediator.Publish(new ProductUpdated
+                {
+                    Product = product,
+                    UpdatedAt = product.UpdatedAt,
+                    UpdatedBy = product.UpdatedBy
+                }).ConfigureAwait(false);
+                return View("Edit");
+            }
+            catch (Exception e)
+            {
+                ModelState.AddModelError("Error", $"There was an error {e.Message}");
+                return View("Edit");
+            }
+        }
+
+        [HttpDelete("{productId:int}")]
+        public async Task<ActionResult> DeleteProduct(int productId)
+        {
+            if (productId is int.MaxValue || productId is int.MinValue)
+                return BadRequest(new {Error = "The ID of product is invalid"});
+            try
+            {
+                _service.DeleteOne(new Product{ Id = productId });
+                await _service.Commit().ConfigureAwait(false);
+                await _mediator.Publish(new ProductDeleted
+                {
+                    ProductId = productId,
+                    DeletedAt = DateTimeOffset.UtcNow
+                }).ConfigureAwait(false);
+                return Ok();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                ModelState.AddModelError("DeleteError", $"There was an error. {e.Message}");
+                return BadRequest(ModelState);
+            }
         }
         
     }

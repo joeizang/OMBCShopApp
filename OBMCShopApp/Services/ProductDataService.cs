@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -35,6 +36,56 @@ namespace OBMCShopApp.Services
                     ShelfNumber = p.ProductShelf.ShelfNumber
                 }).ToListAsync().ConfigureAwait(false);
             return products.AsReadOnly();
+        }
+
+        public Product UpdateProduct(Product targetProduct, ProductUpdateViewModel updatedModel,
+            IDataService<Product> service)
+        {
+            try
+            {
+                targetProduct.Brand = updatedModel.Brand ?? targetProduct.Brand;
+                targetProduct.Name = updatedModel.Name ?? targetProduct.Name;
+                targetProduct.Comments = updatedModel.Comments ?? targetProduct.Comments;
+                targetProduct.CostPrice = updatedModel.CostPrice;
+                targetProduct.RetailPrice = updatedModel.RetailPrice;
+                targetProduct.UnitMeasure = updatedModel.UnitMeasure;
+                targetProduct.ShelfId = updatedModel.ShelfId;
+                targetProduct.Quantity = updatedModel.Quantity;
+            
+                service.UpdateOne(targetProduct);
+                return targetProduct;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+        }
+
+        public Product CreateProduct(ProductCreateInputModel inputModel, IDataService<Product> service)
+        {
+            try
+            {
+                var product = new Product
+                {
+                    Name = inputModel.Name,
+                    Brand = inputModel.Brand,
+                    CostPrice = inputModel.CostPrice,
+                    RetailPrice = inputModel.RetailPrice,
+                    Comments = inputModel.Comments,
+                    ShelfId = inputModel.ShelfId,
+                    Quantity = inputModel.Quantity,
+                    SupplyDate = inputModel.SupplyDate,
+                    UnitMeasure = inputModel.UnitMeasure
+                };
+                service.CreateOne(product);
+                return product;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                throw;
+            }
         }
     }
 }

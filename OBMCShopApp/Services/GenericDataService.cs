@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using OBMCShopApp.Data;
 using OBMCShopApp.Models;
-using OBMCShopApp.QuerySpecifications.Product;
+using OBMCShopApp.QuerySpecifications;
 
 namespace OBMCShopApp.Services
 {

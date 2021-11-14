@@ -1,7 +1,7 @@
 using System;
 using Ardalis.Specification;
 
-namespace OBMCShopApp.QuerySpecifications.Product
+namespace OBMCShopApp.QuerySpecifications
 {
     public class FindSaleByDate : Specification<Models.Sale>, ISingleResultSpecification<Models.Sale>
     {

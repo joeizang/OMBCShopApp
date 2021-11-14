@@ -1,7 +1,7 @@
 using System;
 using Ardalis.Specification;
 
-namespace OBMCShopApp.QuerySpecifications.Product
+namespace OBMCShopApp.QuerySpecifications
 {
     public class FindProductByNameSpec: Specification<Models.Product>, ISingleResultSpecification<Models.Product>
     {

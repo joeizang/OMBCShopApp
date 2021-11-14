@@ -1,5 +1,7 @@
 @model IEnumerable<OBMCShopApp.ViewModels.ProductIndexViewModel>
 @using Microsoft.AspNetCore.Identity
+@using OBMCShopApp.Components
+@using OBMCShopApp.ViewModels
 @inject SignInManager<ApplicationUser> SignInManager
 @inject UserManager<ApplicationUser> UserManager
 
@@ -17,18 +19,10 @@ else
     <h1>Index</h1>
 
     <p>
-        <a asp-controller="Products" asp-action="Create">Create New</a>
+        <a asp-controller="Products" asp-action="Create" class="btn btn-outline-info">Create New</a>
     </p>
 
-    <ejs-grid id="Grid" dataSource="Model" allowPaging="true" allowSorting="true">
-        <e-grid-pagesettings pageSize="10"></e-grid-pagesettings>
-        <e-grid-columns>
-            <e-grid-columns field="ProductID" headerText="Product ID"></e-grid-columns>
-            <e-grid-columns field="Name" headerText="Product Name"></e-grid-columns>
-            <e-grid-columns field="RetailPrice" headerText="Selling Price" format="C2"></e-grid-columns>
-            <e-grid-columns field="CostPrice" headerText="Cost Price" format="C2"></e-grid-columns>
-            <e-grid-columns field="SupplyDate" headerText="Supply Date" width="100" customFormat="@(new { type ="date", format="dd/MM/yyyy" })">
-            </e-grid-columns>
-        </e-grid-columns>
-    </ejs-grid>
+    @(await Html.RenderComponentAsync<ProductIndexList>(RenderMode.Server, new { Products = @Model}))
+
+    @*<component type="typeof(ProductIndexList)" render-mode="Server"></component>*@
 }

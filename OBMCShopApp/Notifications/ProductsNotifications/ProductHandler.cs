@@ -10,26 +10,37 @@ namespace OBMCShopApp.Notifications.ProductsNotifications
     public class ProductAddedHandler : INotificationHandler<ProductAdded>
     {
         private readonly IDataService<ProductSold> _dataService;
+        private readonly IShelfDataService _shelfService;
 
-        public ProductAddedHandler(IDataService<ProductSold> dataService)
+        public ProductAddedHandler(IDataService<ProductSold> dataService, IShelfDataService shelfService)
         {
             _dataService = dataService;
+            _shelfService = shelfService;
         }
         public async Task Handle(ProductAdded notification, CancellationToken cancellationToken)
         {
             if (notification is null)
                 throw new ArgumentNullException("ProductAdded Notification is null which is illegal!");
             // save new productsold to db
-            var productJustSold = new ProductSold
+            try
             {
-                Price = notification.Product.RetailPrice,
-                Quantity = notification.Product.Quantity,
-                ProductName = notification.Product.Name,
-                ShelfNumber = notification.Product.ProductShelf.ShelfNumber,
-                ProductId = notification.Product.Id
-            };
-            _dataService.CreateOne(productJustSold);
-            await _dataService.Commit();
+                var shelfNumber = await _shelfService.GetOne(notification.Product.ShelfId);
+                var productJustSold = new ProductSold
+                {
+                    Price = notification.Product.RetailPrice,
+                    Quantity = notification.Product.Quantity,
+                    ProductName = notification.Product.Name,
+                    ShelfNumber = shelfNumber.ShelfNumber,
+                    ProductId = notification.Product.Id
+                };
+                _dataService.CreateOne(productJustSold);
+                await _dataService.Commit();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                throw;
+            }
         }
     }
 
@@ -45,16 +56,16 @@ namespace OBMCShopApp.Notifications.ProductsNotifications
         {
             if (notification is null)
                 throw new ArgumentNullException("ProductUpdated Notification is null which is illegal!");
-            var productJustSold = new ProductSold
-            {
-                Price = notification.Product.RetailPrice,
-                Quantity = notification.Product.Quantity,
-                ProductName = notification.Product.Name,
-                ShelfNumber = notification.Product.ProductShelf.ShelfNumber,
-                ProductId = notification.Product.Id
-            };
             try
             {
+                var productJustSold = new ProductSold
+                {
+                    Price = notification.Product.RetailPrice,
+                    Quantity = notification.Product.Quantity,
+                    ProductName = notification.Product.Name,
+                    ShelfNumber = notification.Product.ProductShelf.ShelfNumber,
+                    ProductId = notification.Product.Id
+                };
                 _service.CreateOne(productJustSold);
                 await _service.Commit().ConfigureAwait(false);
             }

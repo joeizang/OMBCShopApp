@@ -37,8 +37,10 @@ namespace OBMCShopApp
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<OBMCShopAppContext>(options =>
-                options.UseSqlite(
-                    Configuration.GetConnectionString("DefaultConnection")));
+            //options.UseSqlite(
+            //        Configuration.GetConnectionString("SqlServerLocal")));
+            options.UseSqlServer(
+                    Configuration.GetConnectionString("SqlServerLocal")));
             services.AddDatabaseDeveloperPageExceptionFilter();
 
             services.AddIdentity<ApplicationUser, ApplicationRole>(options => options.SignIn.RequireConfirmedAccount = false)

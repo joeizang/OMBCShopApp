@@ -15,9 +15,9 @@ namespace OBMCShopApp.Data
         {
         }
 
-        public DbSet<ApplicationUser> Users { get; set; }
+        public DbSet<ApplicationUser> AppUsers { get; set; }
 
-        public DbSet<ApplicationRole> Roles { get; set; }
+        public DbSet<ApplicationRole> AppRoles { get; set; }
 
         public DbSet<Product> Products { get; set; }
 

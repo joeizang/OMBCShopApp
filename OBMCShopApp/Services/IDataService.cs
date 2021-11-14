@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Ardalis.Specification;
 using OBMCShopApp.Models;
-using Syncfusion.EJ2.Navigations;
 
 namespace OBMCShopApp.Services
 {

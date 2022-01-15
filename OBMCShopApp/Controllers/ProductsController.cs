@@ -2,6 +2,8 @@ using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using OBMCShopApp.Data;
 using OBMCShopApp.Models;
 using OBMCShopApp.Notifications.ProductsNotifications;
 using OBMCShopApp.QuerySpecifications;
@@ -9,6 +11,7 @@ using OBMCShopApp.Services;
 using OBMCShopApp.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -17,6 +20,7 @@ namespace OBMCShopApp.Controllers
     //[Authorize(Roles = "Owner,Admin")]
     public class ProductsController : Controller
     {
+        private readonly OBMCShopAppContext _context;
         private readonly IProductDataService _service;
         private readonly IShelfDataService _dataAccess;
         private readonly IMapper _mapper;
@@ -24,9 +28,11 @@ namespace OBMCShopApp.Controllers
 
         public ProductsController(IProductDataService service,
             IShelfDataService shelfDataService,
+            OBMCShopAppContext context,
             IMapper mapper,
             IMediator mediator)
         {
+            _context = context;
             _service = service;
             _dataAccess = shelfDataService;
             _mapper = mapper;
@@ -47,6 +53,23 @@ namespace OBMCShopApp.Controllers
         {
             var result = await _service.GetAllProducts().ConfigureAwait(false);
             return Ok(result);
+        }
+
+        [Route("api/all-products")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [Produces(typeof(List<ProductSoldViewModel>))]
+        public async Task<IActionResult> GetProjectedProducts()
+        {
+            var products = await _context.Products.AsNoTracking()
+                .Select(x => new ProductSoldViewModel
+                {
+                    Name = x.Name,
+                    ProductID = x.Id,
+                    Quantity = x.Quantity,
+                    RetailPrice = x.RetailPrice
+                }).ToListAsync().ConfigureAwait(false);
+            return Ok(products);
         }
 
         public async Task<ActionResult> Create()

@@ -31,7 +31,7 @@ namespace OBMCShopApp.Controllers
         public async Task<ActionResult> Create()
         {
             var products = await _productService.GetAll().ConfigureAwait(false);
-            if (products.Any())
+            if (!products.Any())
             {
                 products = new List<Product>();
             }

@@ -44,12 +44,13 @@ namespace OBMCShopApp
             services.AddScoped<ISaleDataService, SaleDataService>();
             services.AddScoped<IShelfDataService, ShelfDataService>();
             services.AddScoped<IDataService<ProductSold>, GenericDataService<ProductSold>>();
+            services.AddScoped<IDataService<Product>, GenericDataService<Product>>();
             services.AddTransient(typeof(SaleService));
             // services.AddTransient(typeof(ProtectedBrowserStorage));
             services.AddHttpContextAccessor();
             services.AddAutoMapper(typeof(Startup));
             services.AddMediatR(typeof(Startup));
-            services.AddScoped(typeof(GenericDataService<>));
+            services.AddScoped(typeof(IDataService<>), typeof(GenericDataService<>));
             services.AddControllersWithViews();
             services.AddRazorPages();
             services.AddServerSideBlazor();

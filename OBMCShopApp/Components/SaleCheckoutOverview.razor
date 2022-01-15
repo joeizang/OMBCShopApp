@@ -2,7 +2,7 @@
 @using OBMCShopApp.Services
 @using OBMCShopApp.ViewModels
 @using Humanizer
-@inject ProtectedLocalStorage BrowserStorage
+@inject ILocalStorageService BrowserStorage
 @inject SaleService SaleService
 @implements IDisposable
 
@@ -40,7 +40,7 @@ else
     protected override async Task OnInitializedAsync()
     {
         SaleService.OnChange += StateHasChanged;
-        var saleState = await BrowserStorage.GetAsync<CreateSaleInputModel>("cart");
+        var saleState = await BrowserStorage.GetItemAsync<CreateSaleInputModel>("cart");
     }
 
     private int GetCartCount()

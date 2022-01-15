@@ -1,14 +1,13 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Ardalis.Specification;
 using Ardalis.Specification.EntityFrameworkCore;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using OBMCShopApp.Data;
 using OBMCShopApp.Models;
-using OBMCShopApp.QuerySpecifications;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace OBMCShopApp.Services
 {
@@ -17,19 +16,19 @@ namespace OBMCShopApp.Services
         private readonly OBMCShopAppContext _context;
         private readonly IHttpContextAccessor _accessor;
         private readonly DbSet<T> _set;
-        
+
         public GenericDataService(OBMCShopAppContext context, IHttpContextAccessor accessor)
         {
             _context = context;
             _accessor = accessor;
             _set = context.Set<T>();
         }
-        public async Task<IReadOnlyList<T>> GetAll()
+        public async Task<List<T>> GetAll()
         {
             var query = await _set.AsNoTracking()
                 .ToListAsync()
                 .ConfigureAwait(false);
-            return query.AsReadOnly();
+            return query;
         }
 
         public async Task<T> GetOne(int id)
@@ -46,11 +45,11 @@ namespace OBMCShopApp.Services
             return await specResult.SingleOrDefaultAsync().ConfigureAwait(false);
         }
 
-        public async Task<IReadOnlyList<T>> GetAll(ISpecification<T> spec)
+        public async Task<List<T>> GetAll(ISpecification<T> spec)
         {
             var specQueryable = ApplySpecification(spec);
             var result = await specQueryable.ToListAsync().ConfigureAwait(false);
-            return result.AsReadOnly();
+            return result;
         }
 
         public void CreateOne(T one)
@@ -74,7 +73,7 @@ namespace OBMCShopApp.Services
             var specResult = evaluator.GetQuery(_set.AsQueryable(), spec);
             return specResult;
         }
-        
+
         public async Task Commit()
         {
             var user = _accessor.HttpContext?.User.Identity?.Name ?? "Anonymous User";

@@ -1,11 +1,11 @@
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using OBMCShopApp.Data;
 using OBMCShopApp.Models;
 using OBMCShopApp.ViewModels;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace OBMCShopApp.Services
 {
@@ -18,7 +18,7 @@ namespace OBMCShopApp.Services
             _context = context;
         }
 
-        public async Task<IReadOnlyList<ShelfViewModel>> GetShelfNumbers()
+        public async Task<List<ShelfViewModel>> GetShelfNumbers()
         {
             var shelves = await _context.Shelves.AsNoTracking()
                 .Select(s => new ShelfViewModel
@@ -26,7 +26,7 @@ namespace OBMCShopApp.Services
                     ShelfId = s.Id,
                     ShelfNumber = s.ShelfNumber
                 }).ToListAsync().ConfigureAwait(false);
-            return shelves.AsReadOnly();
+            return shelves;
         }
     }
 }

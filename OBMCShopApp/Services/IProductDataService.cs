@@ -1,13 +1,13 @@
-using System.Collections.Generic;
-using System.Threading.Tasks;
 using OBMCShopApp.Models;
 using OBMCShopApp.ViewModels;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace OBMCShopApp.Services
 {
     public interface IProductDataService : IDataService<Product>
     {
-        Task<IReadOnlyList<ProductIndexViewModel>> GetAllProducts();
+        Task<List<ProductIndexViewModel>> GetAllProducts();
 
         Product UpdateProduct(Product targetProduct, ProductUpdateViewModel updatedModel, IDataService<Product> service);
 

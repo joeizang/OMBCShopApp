@@ -1,6 +1,5 @@
 @using OBMCShopApp.ViewModels
-@* @using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage *@
-@* @inject ProtectedLocalStorage BrowserStorage *@
+@inject ILocalStorageService BrowserStorage
 @inject AuthenticationStateProvider AuthenticationStateProvider
 
 
@@ -74,7 +73,7 @@
             <span class="card-headings place-price h4 p-2 font-weight-bolder text-dark bg-secondary rounded" id="price">
                 =N= @_price.ToString("N1")
             </span>
-            <button class="btn btn-info rounded m-1 font-weight-bolder" @onclick="@(() => AddOrderedItem())">Add</button>
+            <button class="btn btn-info rounded m-1 font-weight-bolder" @onclick="AddOrderedItem">Add</button>
         </div>
     </div>
     
@@ -90,7 +89,7 @@
     private string _switch = "3px solid red";
 
     public AuthenticationState AuthState { get; set; }
-    
+
     protected override async Task OnInitializedAsync()
     {
         AuthState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
@@ -99,5 +98,10 @@
     private void AddOrderedItem()
     {
         Console.WriteLine("Add button clicked!!!");
+    }
+
+    private async Task AddToCart()
+    {
+
     }
 }

@@ -1,23 +1,16 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using Blazored.LocalStorage;
 using Blazored.Modal;
 using Blazored.Toast;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.UI;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using OBMCShopApp.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using OBMCShopApp.Constants;
-using OBMCShopApp.Extensions;
+using OBMCShopApp.Data;
 using OBMCShopApp.Models;
 using OBMCShopApp.Services;
 using Syncfusion.Blazor;
@@ -39,13 +32,14 @@ namespace OBMCShopApp
             services.AddDbContext<OBMCShopAppContext>(options =>
             //options.UseSqlite(
             //        Configuration.GetConnectionString("SqlServerLocal")));
-            options.UseSqlServer(
-                    Configuration.GetConnectionString("SqlServerLocal")));
+            options.UseSqlite(
+                    Configuration.GetConnectionString("DefaultConnection")));
             services.AddDatabaseDeveloperPageExceptionFilter();
 
             services.AddIdentity<ApplicationUser, ApplicationRole>(options => options.SignIn.RequireConfirmedAccount = false)
                 .AddDefaultUI()
                 .AddEntityFrameworkStores<OBMCShopAppContext>();
+            services.AddHttpClient();
             services.AddScoped<IProductDataService, ProductDataService>();
             services.AddScoped<ISaleDataService, SaleDataService>();
             services.AddScoped<IShelfDataService, ShelfDataService>();
@@ -61,6 +55,7 @@ namespace OBMCShopApp
             services.AddServerSideBlazor();
             services.AddBlazoredModal();
             services.AddBlazoredToast();
+            services.AddBlazoredLocalStorage();
             services.AddSyncfusionBlazor();
         }
 
@@ -86,9 +81,9 @@ namespace OBMCShopApp
             app.UseRouting();
 
             app.UseAuthentication();
-            
+
             app.UseAuthorization();
-            
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(

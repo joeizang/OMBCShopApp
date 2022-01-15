@@ -1,19 +1,20 @@
-using System;
-using System.Threading;
-using System.Threading.Tasks;
 using AutoMapper;
 using MediatR;
-using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using OBMCShopApp.Models;
 using OBMCShopApp.Notifications.ProductsNotifications;
 using OBMCShopApp.QuerySpecifications;
 using OBMCShopApp.Services;
 using OBMCShopApp.ViewModels;
+using System;
+using System.Collections.Generic;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace OBMCShopApp.Controllers
 {
-    [Authorize(Roles = "Owner,Admin")]
+    //[Authorize(Roles = "Owner,Admin")]
     public class ProductsController : Controller
     {
         private readonly IProductDataService _service;
@@ -21,8 +22,8 @@ namespace OBMCShopApp.Controllers
         private readonly IMapper _mapper;
         private readonly IMediator _mediator;
 
-        public ProductsController(IProductDataService service, 
-            IShelfDataService shelfDataService, 
+        public ProductsController(IProductDataService service,
+            IShelfDataService shelfDataService,
             IMapper mapper,
             IMediator mediator)
         {
@@ -38,6 +39,16 @@ namespace OBMCShopApp.Controllers
             return View(result);
         }
 
+        [Route("api/products")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [Produces(typeof(List<ProductIndexViewModel>))]
+        public async Task<IActionResult> GetProducts()
+        {
+            var result = await _service.GetAllProducts().ConfigureAwait(false);
+            return Ok(result);
+        }
+
         public async Task<ActionResult> Create()
         {
             var shelves = await _dataAccess.GetShelfNumbers().ConfigureAwait(false);
@@ -47,7 +58,7 @@ namespace OBMCShopApp.Controllers
             };
             return View(input);
         }
-        
+
         [HttpPost]
         public async Task<ActionResult> Create(ProductCreateInputModel model)
         {
@@ -60,7 +71,7 @@ namespace OBMCShopApp.Controllers
             }
             try
             {
-                var product = _service.CreateProduct(model,_service);
+                var product = _service.CreateProduct(model, _service);
                 await _service.Commit().ConfigureAwait(false);
                 await _mediator.Publish(new ProductAdded
                 {
@@ -123,10 +134,10 @@ namespace OBMCShopApp.Controllers
         public async Task<ActionResult> DeleteProduct(int productId)
         {
             if (productId is int.MaxValue || productId is int.MinValue)
-                return BadRequest(new {Error = "The ID of product is invalid"});
+                return BadRequest(new { Error = "The ID of product is invalid" });
             try
             {
-                _service.DeleteOne(new Product{ Id = productId });
+                _service.DeleteOne(new Product { Id = productId });
                 await _service.Commit().ConfigureAwait(false);
                 await _mediator.Publish(new ProductDeleted
                 {
@@ -142,6 +153,6 @@ namespace OBMCShopApp.Controllers
                 return BadRequest(ModelState);
             }
         }
-        
+
     }
 }

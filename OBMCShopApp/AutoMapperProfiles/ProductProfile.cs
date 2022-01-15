@@ -19,6 +19,7 @@ namespace OBMCShopApp.AutoMapperProfiles
                 .ForMember(d => d.ProductId,
                     o => o.MapFrom(s =>
                         s.Id));
+            CreateMap<Product, ProductSoldViewModel>();
         }
     }
 }

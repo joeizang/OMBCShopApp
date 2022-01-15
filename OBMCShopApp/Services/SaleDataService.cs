@@ -1,5 +1,3 @@
-using System.Collections.Generic;
-using System.Threading.Tasks;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using Microsoft.AspNetCore.Http;
@@ -7,6 +5,8 @@ using Microsoft.EntityFrameworkCore;
 using OBMCShopApp.Data;
 using OBMCShopApp.Models;
 using OBMCShopApp.ViewModels;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace OBMCShopApp.Services
 {
@@ -21,13 +21,18 @@ namespace OBMCShopApp.Services
             _mapper = mapper;
         }
 
-        public async Task<IReadOnlyList<SalesIndexViewModel>> GetAllSales()
+        public async Task<List<SalesIndexViewModel>> GetAllSales()
         {
             var query = await _context.Sales.AsNoTracking().Include(s => s.ItemsSold)
                 .ProjectTo<SalesIndexViewModel>(_mapper.ConfigurationProvider)
                 .ToListAsync()
                 .ConfigureAwait(false);
-            return query.AsReadOnly();
+            return query;
+        }
+
+        public async Task MakeASale(CreateSaleInputModel inputModel)
+        {
+
         }
     }
 }

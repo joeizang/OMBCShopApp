@@ -1,6 +1,6 @@
+using OBMCShopApp.Models;
 using System;
 using System.Collections.Generic;
-using OBMCShopApp.Models;
 
 namespace OBMCShopApp.ViewModels
 {
@@ -21,11 +21,11 @@ namespace OBMCShopApp.ViewModels
 
     public class ProductSoldViewModel
     {
-        public int ProductId { get; set; }
+        public int ProductID { get; set; }
 
-        public string ProductName { get; set; }
+        public string Name { get; set; }
 
-        public decimal Price { get; set; }
+        public decimal RetailPrice { get; set; }
 
         public float Quantity { get; set; }
     }

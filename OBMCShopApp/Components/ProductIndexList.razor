@@ -1,4 +1,7 @@
 ﻿@using OBMCShopApp.ViewModels
+@using System.Text.Json
+@using System.Collections.Generic
+@inject IHttpClientFactory httpClient
 
 <section>
     <SfGrid DataSource="@Products"  AllowPaging="true" AllowSorting="true">
@@ -15,11 +18,18 @@
 
 @code {
     [Parameter]
-    public List<ProductIndexViewModel> Products { get; set; }
+    public IEnumerable<ProductIndexViewModel> Products { get; set; }
 
-    //protected override Task OnInitializedAsync() => base.OnInitializedAsync();
-    protected override void OnInitialized()
+    protected override async Task OnInitializedAsync()
     {
-        //Console.WriteLine(Products.Count);
+        await base.OnInitializedAsync();
+        var client = httpClient.CreateClient();
+        var httpResponse = await client.GetAsync("api/products");
+
+        if (httpResponse.IsSuccessStatusCode == false) Products = new List<ProductIndexViewModel>();
+        var payload = await httpResponse.Content.ReadAsStringAsync();
+        Products = JsonSerializer.Deserialize<IReadOnlyList<ProductIndexViewModel>>(payload);
+
     }
+
 }

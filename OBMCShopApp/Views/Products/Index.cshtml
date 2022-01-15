@@ -9,20 +9,35 @@
     ViewData["Title"] = "Index";
 }
 
-@if (UserManager.Users.Any(u => !u.UserName.Equals("admin@obmc.com") || u.UserName.Equals("owner@obmc.com")))
+@*@if (UserManager.Users.Any(u => !u.UserName.Equals("admin@obmc.com") || !u.UserName.Equals("owner@obmc.com")))
 {
     <h1 class="h1 text-danger">You are not allowed to view this page!!</h1>
 }
 else
-{
+{*@
     
-    <h1>Index</h1>
+    <h1>Products Inventory Summary</h1>
 
     <p>
-        <a asp-controller="Products" asp-action="Create" class="btn btn-outline-info">Create New</a>
+        <a asp-controller="Products" asp-action="Create" class="btn btn-outline-info">Add New Product</a>
     </p>
 
-    @(await Html.RenderComponentAsync<ProductIndexList>(RenderMode.Server, new { Products = @Model}))
+    <ejs-grid id="Grid" dataSource="@Model" allowPaging="true" enableAdaptiveUI="true">
+        <e-grid-pagesettings pageSize="10"></e-grid-pagesettings>
+        <e-grid-columns>
+            <e-grid-column field="ProductID" headerText="Product ID" textAlign="Center" width="120"></e-grid-column>
+            <e-grid-column field="Name" headerText="Name" textAlign="Center" width="120"></e-grid-column>
+            <e-grid-column field="RetailPrice" headerText="Retail Price" textAlign="Center" format="N2" width="120"></e-grid-column>
+            <e-grid-column field="CostPrice" headerText="Cost Price" textAlign="Center" format="N2" width="120"></e-grid-column>
+            <e-grid-column field="SupplyDate" headerText="Date" format="dd-MM-y" textAlign="Center" width="140"></e-grid-column>
+            <e-grid-column field="Quantity" headerText="Quantity" textAlign="Center" width="120"></e-grid-column>
+            <e-grid-column field="UnitMeasure" headerText="Unit Measure" textAlign="Center" width="120"></e-grid-column>
+            <e-grid-column field="ShelfNumber" headerText="Shelf Number" textAlign="Center" width="120"></e-grid-column>
+        </e-grid-columns>
+
+    </ejs-grid>
+
+    @*@(await Html.RenderComponentAsync<ProductIndexList>(RenderMode.Server, new { Products = @Model}))*@
 
     @*<component type="typeof(ProductIndexList)" render-mode="Server"></component>*@
-}
+@*}*@

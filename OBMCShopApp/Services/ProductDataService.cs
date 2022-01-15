@@ -1,12 +1,12 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using OBMCShopApp.Data;
 using OBMCShopApp.Models;
 using OBMCShopApp.ViewModels;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace OBMCShopApp.Services
 {
@@ -19,7 +19,7 @@ namespace OBMCShopApp.Services
             _context = context;
         }
 
-        public async Task<IReadOnlyList<ProductIndexViewModel>> GetAllProducts()
+        public async Task<List<ProductIndexViewModel>> GetAllProducts()
         {
             var products = await _context.Products
                 .AsNoTracking()
@@ -35,7 +35,7 @@ namespace OBMCShopApp.Services
                     ProductID = p.Id,
                     ShelfNumber = p.ProductShelf.ShelfNumber
                 }).ToListAsync().ConfigureAwait(false);
-            return products.AsReadOnly();
+            return products;
         }
 
         public Product UpdateProduct(Product targetProduct, ProductUpdateViewModel updatedModel,
@@ -51,7 +51,7 @@ namespace OBMCShopApp.Services
                 targetProduct.UnitMeasure = updatedModel.UnitMeasure;
                 targetProduct.ShelfId = updatedModel.ShelfId;
                 targetProduct.Quantity = updatedModel.Quantity;
-            
+
                 service.UpdateOne(targetProduct);
                 return targetProduct;
             }

@@ -28,7 +28,8 @@
             </div>
             <div class="form-group">
                 <label asp-for="SupplyDate" class="control-label"></label>
-                <input asp-for="SupplyDate" class="form-control" type="date"/>
+                @*<input asp-for="SupplyDate" class="form-control" type="date"/>*@
+                <ejs-datepicker id="datepicker" focus="onFocus" value="@Model.SupplyDate" min="@new DateTime(2018,DateTime.UtcNow.Month,DateTime.UtcNow.Day)"></ejs-datepicker>
                 <span asp-validation-for="SupplyDate" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -69,6 +70,9 @@
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
     <script>
-    
+        function onFocus (args) {
+            var datepickerObject = document.getElementById("datepicker").ej2_instances[0];
+            datepickerObject.show();
+        }
     </script>
 }

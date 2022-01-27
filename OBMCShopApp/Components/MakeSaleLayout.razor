@@ -1,23 +1,39 @@
+@using Microsoft.EntityFrameworkCore
 @using OBMCShopApp.ViewModels
 @using System.Text.Json
 @inject ILocalStorageService BrowserStorage
 @inject IHttpClientFactory httpFactory
+@inject OBMCShopAppContext _context
 @inject AuthenticationStateProvider AuthenticationStateProvider
 
 
 <div class="row">
-    @foreach(var product in products)
-    {
-        <div class="col-4 mb-3 ml-3 ml-sm-2 col-sm-2 d-flex">
-            <div class="card shadow d-flex" style="border: @(_borderSwitch ? _switch : ""); width: 23rem;">
-                <h3 class="card-title card-headings pt-1 font-weight-bolder text-dark text-center">@product.Name</h3>
-                <span class="card-headings place-price h4 p-2 font-weight-bolder text-dark bg-secondary rounded" id="price">
-                    =N= @product.RetailPrice.ToString("N1")
-                </span>
-                <button class="btn btn-info rounded m-1 font-weight-bolder" @onclick="@(() => AddOrderedItem())">Buy</button>
+    <div class="col-8">
+        <EditForm Model="@searchParameter" OnValidSubmit="FilterProducts">
+            <span class="ml-5 mb-5">
+            <InputText type="text" @bind-Value="searchParameter" placeholder="Search by item name or shelf number..." class="form-control mb-4 ml-5" />
+        </span>
+        <span>
+            <button class="btn btn-info ml-5" type="submit">
+                Search
+            </button>
+        </span>
+        </EditForm>
+    </div>
+    <div class="col-8 mt-3">
+        @foreach (var product in products)
+        {
+            <div class="col-4 mb-3 ml-3 ml-sm-2 col-sm-2 d-flex">
+                <div class="card shadow d-flex" style="border: @(_borderSwitch ? _switch : ""); width: 80rem;">
+                    <h5 class="card-title card-headings pt-1 font-weight-bolder text-dark text-center">@product.Name</h5>
+                    <span class="card-headings place-price h5 p-2 font-weight-bolder text-dark bg-secondary rounded" id="price">
+                        =N= @product.RetailPrice.ToString("N2")
+                    </span>
+                    <button class="btn btn-block btn-info rounded font-weight-bolder" @onclick="@(() => AddOrderedItem())">Buy</button>
+                </div>
             </div>
-        </div>   
-    }    
+        }
+    </div>
 </div>
 
 
@@ -28,6 +44,8 @@
 
     private string _switch = "3px solid red";
 
+    private string searchParameter = "";
+
     List<ProductSoldViewModel> products = new();
 
     public AuthenticationState AuthState { get; set; }
@@ -35,6 +53,28 @@
     protected override async Task OnInitializedAsync()
     {
         AuthState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+        await GetProducts();
+
+    }
+
+    private void AddOrderedItem()
+    {
+        Console.WriteLine("Add button clicked!!!");
+    }
+
+    private async Task FilterProducts()
+    {
+        if (string.IsNullOrEmpty(searchParameter))
+        {
+            await GetProducts();
+            return;
+        }
+        var temp = products.Where(x => x.Name.Contains(searchParameter)).OrderByDescending(x => x).ToList();
+        products = temp;
+    }
+
+    private async Task GetProducts() // think about caching this db call so you don't have to do this on every key stroke
+    {
         products = await _context.Products.AsNoTracking()
                 .Select(x => new ProductSoldViewModel
                 {
@@ -43,15 +83,5 @@
                     Quantity = x.Quantity,
                     RetailPrice = x.RetailPrice
                 }).ToListAsync().ConfigureAwait(false);
-    }
-
-    private void AddOrderedItem()
-    {
-        Console.WriteLine("Add button clicked!!!");
-    }
-
-    private async Task AddToCart()
-    {
-
     }
 }

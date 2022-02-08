@@ -1,4 +1,3 @@
-using OBMCShopApp.Models;
 using System;
 using System.Collections.Generic;
 
@@ -6,6 +5,10 @@ namespace OBMCShopApp.ViewModels
 {
     public class CreateSaleInputModel
     {
+        public CreateSaleInputModel()
+        {
+            Products = new();
+        }
         public decimal SubTotal { get; set; }
 
         public decimal GrandTotal { get; set; }
@@ -15,8 +18,6 @@ namespace OBMCShopApp.ViewModels
         public DateTimeOffset SaleDate { get; set; }
 
         public string SalesPerson { get; set; }
-
-        public UnitMeasure UnitMeasure { get; set; }
     }
 
     public class ProductSoldViewModel
@@ -28,5 +29,7 @@ namespace OBMCShopApp.ViewModels
         public decimal RetailPrice { get; set; }
 
         public float Quantity { get; set; }
+
+
     }
 }

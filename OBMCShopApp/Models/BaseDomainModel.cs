@@ -5,8 +5,8 @@ namespace OBMCShopApp.Models
 {
     public abstract class BaseDomainModel
     {
-        public DateTimeOffset CreatedAt { get; set; } = DateTimeOffset.UtcNow.LocalDateTime;
-        public DateTimeOffset UpdatedAt { get; set; } = DateTimeOffset.UtcNow.LocalDateTime;
+        public DateTime CreatedAt { get; set; } = DateTime.UtcNow.Date;
+        public DateTime UpdatedAt { get; set; } = DateTime.UtcNow.Date;
 
         [Key]
         public int Id { get; set; }

@@ -1,40 +1,58 @@
 @using Microsoft.EntityFrameworkCore
+@using Microsoft.Extensions.Caching.Memory
+@using OBMCShopApp.Services
 @using OBMCShopApp.ViewModels
 @using System.Text.Json
 @inject ILocalStorageService BrowserStorage
+@inject ISaleService SaleService
 @inject IHttpClientFactory httpFactory
 @inject OBMCShopAppContext _context
 @inject AuthenticationStateProvider AuthenticationStateProvider
+@inject IMemoryCache _cache
 
-
-<div class="row">
-    <div class="col-8">
+<div class="col-12 col-sm-12 col-md-12 col-xs-12 mb-4">
+    <div>
         <EditForm Model="@searchParameter" OnValidSubmit="FilterProducts">
-            <span class="ml-5 mb-5">
-            <InputText type="text" @bind-Value="searchParameter" placeholder="Search by item name or shelf number..." class="form-control mb-4 ml-5" />
-        </span>
-        <span>
-            <button class="btn btn-info ml-5" type="submit">
-                Search
-            </button>
-        </span>
+            <span class="col-12 ml-5 mb-3">
+                <InputText type="text" @bind-Value="searchParameter" placeholder="Search by item name or shelf number..." class="form-control mb-4" />
+            </span>
+            <span class="justify-content-center">
+                <button id="submitBtn" class="btn btn-info btn-block text-white font-weight-bold" type="submit">
+                    Search
+                </button>
+            </span>
         </EditForm>
     </div>
-    <div class="col-8 mt-3">
-        @foreach (var product in products)
-        {
-            <div class="col-4 mb-3 ml-3 ml-sm-2 col-sm-2 d-flex">
-                <div class="card shadow d-flex" style="border: @(_borderSwitch ? _switch : ""); width: 80rem;">
-                    <h5 class="card-title card-headings pt-1 font-weight-bolder text-dark text-center">@product.Name</h5>
-                    <span class="card-headings place-price h5 p-2 font-weight-bolder text-dark bg-secondary rounded" id="price">
-                        =N= @product.RetailPrice.ToString("N2")
-                    </span>
-                    <button class="btn btn-block btn-info rounded font-weight-bolder" @onclick="@(() => AddOrderedItem())">Buy</button>
-                </div>
+</div>
+    
+@foreach (var product in products)
+{
+<div>
+    <div class="card-deck">
+        <div class="card shadow mr-4 rounded" style="border: @(_borderSwitch ? _switch : ""); width: 10rem;">
+            <h5 class="card-title card-headings pt-1 font-weight-bolder text-dark text-center">@product.Name</h5>
+            <div class="card-body">
+                <p class="card-text">
+                    <small class="card-text" style="color:@(product.Quantity == 1f ? "red" : product.Quantity >= 2 && product.Quantity < 5f ? "orange" : "black")">
+                        @(product.Quantity == 1f ? "Out of Stock" : product.Quantity >= 2 && product.Quantity < 5f ? "Stock is low" : "In Stock")
+                    </small>
+                </p>
+                <span class="place-price card-text p-2 font-weight-bold text-center text-dark bg-secondary" id="price">
+                    =N= @product.RetailPrice.ToString("N2")
+                </span>
             </div>
-        }
+            <button
+              disabled="@(product.Quantity < 2f)"
+              class="@($"btn btn-block {cardButtonState} rounded font-weight-bolder")"
+              @onclick="@((e) => AddOrderedItem(product))"
+            >
+                @(product.Quantity < 2 ? "Out of Stock" : buyButtonText)
+            </button>
+        </div>
     </div>
 </div>
+}
+
 
 
 @code
@@ -43,45 +61,69 @@
     private bool _borderSwitch = false;
 
     private string _switch = "3px solid red";
-
+    private string buyButtonText = "BUY";
+    private string addedToShoppingBag = "";
     private string searchParameter = "";
+    private string cardButtonState = "";
 
-    List<ProductSoldViewModel> products = new();
+    List<ProductIndexViewModel> products;
 
     public AuthenticationState AuthState { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
+        cardButtonState = "btn-info";
         AuthState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
-        await GetProducts();
+        products = _cache.Get<List<ProductIndexViewModel>>("productsForSale");
+        if(products is null)
+        {
+            products = await GetProducts();
+        }
+
+        _cache.Set<List<ProductIndexViewModel>>("productsForSale", products, TimeSpan.FromSeconds(30));
 
     }
 
-    private void AddOrderedItem()
+    private async Task AddOrderedItem(ProductIndexViewModel product)
     {
-        Console.WriteLine("Add button clicked!!!");
+        cardButtonState = "btn-secondary";
+        await SaleService.AddToCart(new ProductSoldViewModel
+        {
+            Name = product.Name,
+            ProductID = product.ProductID,
+            RetailPrice = product.RetailPrice
+        });
+
     }
 
     private async Task FilterProducts()
     {
         if (string.IsNullOrEmpty(searchParameter))
         {
-            await GetProducts();
+            if(_cache.Get<List<ProductIndexViewModel>>("productsForSale") is null)
+            {
+                _cache.Set<List<ProductIndexViewModel>>("productsForSale", await GetProducts(), TimeSpan.FromSeconds(30));
+                products = _cache.Get<List<ProductIndexViewModel>>("productsForSale");
+            }
             return;
         }
-        var temp = products.Where(x => x.Name.Contains(searchParameter)).OrderByDescending(x => x).ToList();
+        var temp = products.Where(x => x.Name.Contains(searchParameter)).ToList();
         products = temp;
     }
 
-    private async Task GetProducts() // think about caching this db call so you don't have to do this on every key stroke
+    private async Task<List<ProductIndexViewModel>> GetProducts() // think about caching this db call so you don't have to do this on every key stroke
     {
-        products = await _context.Products.AsNoTracking()
-                .Select(x => new ProductSoldViewModel
+        var result = await _context.Products.AsNoTracking()
+                .Include(p => p.ProductShelf)
+                .Select(x => new ProductIndexViewModel
                 {
                     Name = x.Name,
                     ProductID = x.Id,
                     Quantity = x.Quantity,
-                    RetailPrice = x.RetailPrice
+                    RetailPrice = x.RetailPrice,
+                    ShelfNumber = x.ProductShelf.ShelfNumber,
+                    SupplyDate = x.SupplyDate
                 }).ToListAsync().ConfigureAwait(false);
+        return result;
     }
 }

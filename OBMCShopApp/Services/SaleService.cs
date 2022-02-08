@@ -1,26 +1,43 @@
+using Blazored.LocalStorage;
+using OBMCShopApp.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage;
-using OBMCShopApp.ViewModels;
 
 namespace OBMCShopApp.Services
 {
     public interface ISaleService
     {
         event Action OnChange;
-        Task AddToCart(List<CreateSaleInputModel> item);
+        Task AddToCart(ProductSoldViewModel item);
     }
     public class SaleService : ISaleService
     {
-        [Inject]
-        private ProtectedBrowserStorage LocalStorage { get; set; }
+        private readonly ILocalStorageService _localStorage;
+
+        public SaleService(ILocalStorageService localStorage)
+        {
+            _localStorage = localStorage;
+        }
+
         public event Action OnChange;
 
-        public async Task AddToCart(List<CreateSaleInputModel> item)
+        public async Task AddToCart(ProductSoldViewModel item)
         {
-            await LocalStorage.SetAsync("cart", item);
+            var cart = await _localStorage.GetItemAsync<CreateSaleInputModel>("cart");
+            if (cart is null)
+            {
+                var newCart = new CreateSaleInputModel();
+                var products = new List<ProductSoldViewModel>
+                {
+                    item
+                };
+                newCart.Products = products;
+                await _localStorage.SetItemAsync("cart", newCart);
+                return;
+            }
+            cart.Products.Add(item);
+            await _localStorage.SetItemAsync("cart", cart);
             OnChange?.Invoke();
         }
     }

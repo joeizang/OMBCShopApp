@@ -3,15 +3,15 @@
 @using OBMCShopApp.ViewModels
 @using Humanizer
 @inject ILocalStorageService BrowserStorage
-@inject SaleService SaleService
+@inject ISaleService SaleService
 @implements IDisposable
 
-@if (GetCartCount() > 0)
+@if (ProductsSold.Count > 0)
 {
     <div>
         <button class="btn btn-warning" @onclick="@ShowModal">
             <span>Finish Sale</span>
-            <span class="badge badge-pill badge-light"><b>@GetCartCount()</b></span>
+            <span class="badge badge-pill badge-light"><b>@saleCart?.Products.Count</b></span>
         </button>
     </div>
 }
@@ -27,7 +27,7 @@ else
     <DialogTemplates>
         <Header><h3 class="h3">Finish Sale</h3></Header>
         <Content>
-            <SaleCheckout SalePayload="@SaleCart"></SaleCheckout>
+            <SaleCheckout SalePayload="@saleCart"></SaleCheckout>
         </Content>
     </DialogTemplates>
 </SfDialog>
@@ -35,26 +35,16 @@ else
 
 @code {
     private List<ProductSoldViewModel> ProductsSold { get; set; } = new();
-    private CreateSaleInputModel SaleCart { get; set; } = new();
+    private CreateSaleInputModel saleCart;
+
     private bool _showModal = false;
     protected override async Task OnInitializedAsync()
     {
         SaleService.OnChange += StateHasChanged;
-        var saleState = await BrowserStorage.GetItemAsync<CreateSaleInputModel>("cart");
-    }
-
-    private int GetCartCount()
-    {
-        // Task.Run(async () =>
-        // {
-        //     var result = await BrowserStorage.GetAsync<CreateSaleInputModel>("cart");
-        //     if (!result.Success) return 1;
-        //     SaleCart = result.Value;
-        //     ProductsSold = SaleCart?.Products;
-        //     return 1;
-        // });
-
-        return 1;
+        var temp = await BrowserStorage
+                    .GetItemAsync<CreateSaleInputModel>("cart");
+        saleCart = temp is not null ? temp : new();
+        ProductsSold = saleCart.Products;
     }
 
     private void ShowModal()
@@ -63,6 +53,13 @@ else
             _showModal = true;
         else
             _showModal = false;
+    }
+
+    private async Task<int> CountProductsInCart()
+    {
+        var cart = await BrowserStorage
+                    .GetItemAsync<CreateSaleInputModel>("cart");
+        return cart?.Products.Count ?? 0;
     }
 
     public void Dispose()

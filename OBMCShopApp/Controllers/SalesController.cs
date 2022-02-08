@@ -1,4 +1,3 @@
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using OBMCShopApp.Models;
 using OBMCShopApp.Services;
@@ -9,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace OBMCShopApp.Controllers
 {
-    [Authorize(Roles = "SalesPerson,Owner,Admin")]
+    //[Authorize(Roles = "SalesPerson,Owner,Admin")]
     public class SalesController : Controller
     {
         private readonly IDataService<Product> _productService;

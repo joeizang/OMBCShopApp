@@ -30,22 +30,23 @@ namespace OBMCShopApp
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<OBMCShopAppContext>(options =>
-            //options.UseSqlite(
-            //        Configuration.GetConnectionString("SqlServerLocal")));
-            options.UseSqlite(
+            options.UseNpgsql(
                     Configuration.GetConnectionString("DefaultConnection")));
+            //options.UseSqlite(
+            //        Configuration.GetConnectionString("DefaultConnection")));
             services.AddDatabaseDeveloperPageExceptionFilter();
 
             services.AddIdentity<ApplicationUser, ApplicationRole>(options => options.SignIn.RequireConfirmedAccount = false)
                 .AddDefaultUI()
                 .AddEntityFrameworkStores<OBMCShopAppContext>();
             services.AddHttpClient();
+            services.AddMemoryCache();
             services.AddScoped<IProductDataService, ProductDataService>();
             services.AddScoped<ISaleDataService, SaleDataService>();
             services.AddScoped<IShelfDataService, ShelfDataService>();
             services.AddScoped<IDataService<ProductSold>, GenericDataService<ProductSold>>();
             services.AddScoped<IDataService<Product>, GenericDataService<Product>>();
-            services.AddTransient(typeof(SaleService));
+            services.AddTransient<ISaleService, SaleService>();
             // services.AddTransient(typeof(ProtectedBrowserStorage));
             services.AddHttpContextAccessor();
             services.AddAutoMapper(typeof(Startup));

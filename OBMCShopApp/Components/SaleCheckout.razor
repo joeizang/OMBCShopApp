@@ -1,7 +1,13 @@
 @using OBMCShopApp.ViewModels
 <div class="">
 <h3>Sale Checkout</h3>
+    <div>
+         @foreach(var p in @SalePayload.Products)
+         {
+            <p>@p.Name</p>
+         }
+    </div>
 </div>
 @code {
-    [Parameter] public CreateSaleInputModel SalePayload { get; set; }
+    [Parameter] public CreateSaleInputModel SalePayload { get; set; } = new();
 }

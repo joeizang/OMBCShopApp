@@ -24,7 +24,7 @@ namespace OBMCShopApp.Models
         public decimal CostPrice { get; set; }
 
         [Required]
-        public DateTimeOffset SupplyDate { get; set; }
+        public DateTime SupplyDate { get; set; }
 
         [Required]
         public float Quantity { get; set; }

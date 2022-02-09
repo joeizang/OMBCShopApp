@@ -8,7 +8,7 @@ namespace OBMCShopApp.ViewModels
 
         public decimal GrandTotal { get; set; }
 
-        public DateTimeOffset SaleDate { get; set; }
+        public DateOnly SaleDate { get; set; }
 
         public int NumberOfItemsSold { get; set; }
     }

@@ -30,9 +30,9 @@ namespace OBMCShopApp.Services
             return query;
         }
 
-        public async Task MakeASale(CreateSaleInputModel inputModel)
-        {
+        //public async Task MakeASale(CreateSaleInputModel inputModel)
+        //{
 
-        }
+        //}
     }
 }

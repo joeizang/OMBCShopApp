@@ -66,7 +66,7 @@
     private string searchParameter = "";
     private string cardButtonState = "";
 
-    List<ProductIndexViewModel> products;
+    List<ProductIndexViewModel> products = new();
 
     public AuthenticationState AuthState { get; set; }
 
@@ -74,13 +74,15 @@
     {
         cardButtonState = "btn-info";
         AuthState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
-        products = _cache.Get<List<ProductIndexViewModel>>("productsForSale");
-        if(products is null)
-        {
-            products = await GetProducts();
-        }
+        products = await GetProducts();
+        //products = _cache.Get<List<ProductIndexViewModel>>("productsForSale");
+        //if(products is null)
+        //{
+        //    var temp = await GetProducts();
+        //    products = temp;
+        //}
 
-        _cache.Set<List<ProductIndexViewModel>>("productsForSale", products, TimeSpan.FromSeconds(30));
+        //_cache.Set<List<ProductIndexViewModel>>("productsForSale", products, TimeSpan.FromSeconds(30));
 
     }
 

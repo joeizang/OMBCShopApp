@@ -1,6 +1,6 @@
-using System;
 using MediatR;
 using OBMCShopApp.Models;
+using System;
 
 namespace OBMCShopApp.Notifications.ProductsNotifications
 {
@@ -8,7 +8,7 @@ namespace OBMCShopApp.Notifications.ProductsNotifications
     {
         public Product Product { get; set; }
 
-        public DateTimeOffset AddedWhen { get; set; }
+        public DateOnly AddedWhen { get; set; }
 
         public string AddedBy { get; set; }
     }
@@ -19,13 +19,13 @@ namespace OBMCShopApp.Notifications.ProductsNotifications
 
         public string UpdatedBy { get; set; }
 
-        public DateTimeOffset UpdatedAt { get; set; }
+        public DateOnly UpdatedAt { get; set; }
     }
 
     public class ProductDeleted : INotification
     {
         public int ProductId { get; set; }
 
-        public DateTimeOffset DeletedAt { get; set; }
+        public DateOnly DeletedAt { get; set; }
     }
 }

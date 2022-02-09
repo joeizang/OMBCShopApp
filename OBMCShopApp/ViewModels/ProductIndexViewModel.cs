@@ -14,9 +14,8 @@ namespace OBMCShopApp.ViewModels
 
         public decimal CostPrice { get; set; }
 
-        [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
-        public DateTimeOffset SupplyDate { get; set; }
+        public DateOnly SupplyDate { get; set; }
 
         public float Quantity { get; set; }
 

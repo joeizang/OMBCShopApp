@@ -9,7 +9,7 @@ namespace OBMCShopApp.Models
         {
             ItemsSold = new List<ProductSold>();
         }
-        public DateTime SaleDate { get; set; }
+        public DateOnly SaleDate { get; set; }
 
         public string SalesPerson { get; set; } = null!;
 

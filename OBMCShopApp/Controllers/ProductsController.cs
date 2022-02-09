@@ -100,7 +100,7 @@ namespace OBMCShopApp.Controllers
                 {
                     Product = product,
                     AddedBy = HttpContext.User?.Identity?.Name,
-                    AddedWhen = DateTimeOffset.Now
+                    AddedWhen = DateOnly.FromDateTime(DateTime.Now)
                 }, CancellationToken.None)
                     .ConfigureAwait(false);
                 return View("Index");
@@ -165,7 +165,7 @@ namespace OBMCShopApp.Controllers
                 await _mediator.Publish(new ProductDeleted
                 {
                     ProductId = productId,
-                    DeletedAt = DateTimeOffset.UtcNow
+                    DeletedAt = DateOnly.FromDateTime(DateTime.Now)
                 }).ConfigureAwait(false);
                 return Ok();
             }

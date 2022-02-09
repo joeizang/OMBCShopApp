@@ -1,8 +1,8 @@
+using OBMCShopApp.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using OBMCShopApp.Models;
 
 namespace OBMCShopApp.ViewModels
 {
@@ -33,26 +33,26 @@ namespace OBMCShopApp.ViewModels
         [Required]
         [Display(Name = "Supply Date")]
         [DataType(DataType.Date)]
-        public DateTimeOffset SupplyDate { get; set; }
+        public DateOnly SupplyDate { get; set; }
 
         [Required]
         public float Quantity { get; set; }
-        
+
         [DataType(DataType.Text)]
         [Display(Name = "Product Brand")]
         public string Brand { get; set; }
-        
+
         [DataType(DataType.Text)]
         [Display(Name = "Any Comments")]
         public string Comments { get; set; }
-        
+
         [Required]
         [EnumDataType(typeof(UnitMeasure))]
         [Display(Name = "Unit Measure")]
         public UnitMeasure UnitMeasure { get; set; }
 
         public IEnumerable<ShelfViewModel> Shelves { get; set; }
-        
+
         public int ShelfId { get; set; }
     }
 }

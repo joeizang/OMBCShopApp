@@ -22,7 +22,7 @@ else
         <a asp-controller="Products" asp-action="Create" class="btn btn-outline-info">Add New Product</a>
     </p>
 
-    <ejs-grid id="Grid" dataSource="@Model" allowPaging="true" enableAdaptiveUI="true">
+    @*<ejs-grid id="Grid" dataSource="@Model" allowPaging="true" enableAdaptiveUI="true">
         <e-grid-pagesettings pageSize="10"></e-grid-pagesettings>
         <e-grid-columns>
             <e-grid-column field="ProductID" headerText="Product ID" textAlign="Center" width="120"></e-grid-column>
@@ -35,9 +35,7 @@ else
             <e-grid-column field="ShelfNumber" headerText="Shelf Number" textAlign="Center" width="120"></e-grid-column>
         </e-grid-columns>
 
-    </ejs-grid>
+    </ejs-grid>*@
 
-    @*@(await Html.RenderComponentAsync<ProductIndexList>(RenderMode.Server, new { Products = @Model}))*@
-
-    @*<component type="typeof(ProductIndexList)" render-mode="Server"></component>*@
+    <component type="typeof(ProductIndexList)" render-mode="Server"></component>
 @*}*@

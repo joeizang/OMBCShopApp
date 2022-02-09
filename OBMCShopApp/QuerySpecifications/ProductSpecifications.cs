@@ -1,9 +1,9 @@
-using System;
 using Ardalis.Specification;
+using System;
 
 namespace OBMCShopApp.QuerySpecifications
 {
-    public class FindProductByNameSpec: Specification<Models.Product>, ISingleResultSpecification<Models.Product>
+    public class FindProductByNameSpec : Specification<Models.Product>, ISingleResultSpecification<Models.Product>
     {
         public FindProductByNameSpec(string productName)
         {
@@ -30,11 +30,11 @@ namespace OBMCShopApp.QuerySpecifications
 
     public class FindProductBySupplyDate : Specification<Models.Product>, ISingleResultSpecification<Models.Product>
     {
-        public FindProductBySupplyDate(DateTime date)
+        public FindProductBySupplyDate(DateOnly date)
         {
             Query.AsNoTracking().Where(p => p.SupplyDate == date);
         }
     }
-    
-    
+
+
 }

@@ -1,11 +1,11 @@
-using System;
 using Ardalis.Specification;
+using System;
 
 namespace OBMCShopApp.QuerySpecifications
 {
     public class FindSaleByDate : Specification<Models.Sale>, ISingleResultSpecification<Models.Sale>
     {
-        public FindSaleByDate(DateTimeOffset saleDate)
+        public FindSaleByDate(DateOnly saleDate)
         {
             Query.AsNoTracking().Include(s => s.ItemsSold)
                 .Where(s => s.SaleDate == saleDate);

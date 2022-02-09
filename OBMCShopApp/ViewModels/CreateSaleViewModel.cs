@@ -15,7 +15,7 @@ namespace OBMCShopApp.ViewModels
 
         public List<ProductSoldViewModel> Products { get; set; }
 
-        public DateTimeOffset SaleDate { get; set; }
+        public DateOnly SaleDate { get; set; }
 
         public string SalesPerson { get; set; }
     }

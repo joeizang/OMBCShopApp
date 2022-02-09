@@ -1,35 +1,31 @@
-﻿@using OBMCShopApp.ViewModels
-@using System.Text.Json
+﻿@using OBMCShopApp.Services
+@using OBMCShopApp.ViewModels
 @using System.Collections.Generic
-@inject IHttpClientFactory httpClient
+@inject IProductDataService _productService
 
 <section>
     <SfGrid DataSource="@Products"  AllowPaging="true" AllowSorting="true">
         <GridPageSettings PageSize="10"></GridPageSettings>
         <GridColumns>
-            <GridColumn Field="@nameof(ProductIndexViewModel.ProductID)" HeaderText="Product ID"></GridColumn>
+            <GridColumn Field="@nameof(ProductIndexViewModel.ProductID)" HeaderText="Product ID" Width="50"></GridColumn>
             <GridColumn Field="@nameof(ProductIndexViewModel.Name)" HeaderText="Product Name"></GridColumn>
             <GridColumn Field="@nameof(ProductIndexViewModel.RetailPrice)" HeaderText="Selling Price" Format="C2"></GridColumn>
             <GridColumn Field="@nameof(ProductIndexViewModel.CostPrice)" HeaderText="Cost Price" Format="C2"></GridColumn>
-            <GridColumn Field="@nameof(ProductIndexViewModel.SupplyDate)" HeaderText="Supply Date" Width="100"></GridColumn>
+            <GridColumn Field="@nameof(ProductIndexViewModel.SupplyDate)" HeaderText="Supply Date" Width="150" Format="D"></GridColumn>
         </GridColumns>
     </SfGrid>
 </section>
 
 @code {
     [Parameter]
-    public IEnumerable<ProductIndexViewModel> Products { get; set; }
+    public List<ProductIndexViewModel> Products { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
         await base.OnInitializedAsync();
-        var client = httpClient.CreateClient();
-        var httpResponse = await client.GetAsync("api/products");
-
-        if (httpResponse.IsSuccessStatusCode == false) Products = new List<ProductIndexViewModel>();
-        var payload = await httpResponse.Content.ReadAsStringAsync();
-        Products = JsonSerializer.Deserialize<IReadOnlyList<ProductIndexViewModel>>(payload);
-
+        var result = await _productService.GetAllProducts();
+        if (result is null) Products = new();
+        Products = result;
     }
 
 }

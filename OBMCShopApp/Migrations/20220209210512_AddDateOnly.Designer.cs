@@ -4,40 +4,46 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
+using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using OBMCShopApp.Data;
+
+#nullable disable
 
 namespace OBMCShopApp.Migrations
 {
     [DbContext(typeof(OBMCShopAppContext))]
-    [Migration("20211022225344_AddProductsSoldEntity")]
-    partial class AddProductsSoldEntity
+    [Migration("20220209210512_AddDateOnly")]
+    partial class AddDateOnly
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "5.0.11");
+                .HasAnnotation("ProductVersion", "6.0.2")
+                .HasAnnotation("Relational:MaxIdentifierLength", 63);
+
+            NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
                     b.Property<string>("Id")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("text");
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("text");
 
                     b.Property<string>("Discriminator")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("text");
 
                     b.Property<string>("Name")
                         .HasMaxLength(256)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("character varying(256)");
 
                     b.Property<string>("NormalizedName")
                         .HasMaxLength(256)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("character varying(256)");
 
                     b.HasKey("Id");
 
@@ -45,7 +51,7 @@ namespace OBMCShopApp.Migrations
                         .IsUnique()
                         .HasDatabaseName("RoleNameIndex");
 
-                    b.ToTable("AspNetRoles");
+                    b.ToTable("AspNetRoles", (string)null);
 
                     b.HasDiscriminator<string>("Discriminator").HasValue("IdentityRole");
                 });
@@ -54,80 +60,82 @@ namespace OBMCShopApp.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<string>("ClaimType")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("text");
 
                     b.Property<string>("ClaimValue")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("text");
 
                     b.Property<string>("RoleId")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("text");
 
                     b.HasKey("Id");
 
                     b.HasIndex("RoleId");
 
-                    b.ToTable("AspNetRoleClaims");
+                    b.ToTable("AspNetRoleClaims", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUser", b =>
                 {
                     b.Property<string>("Id")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("text");
 
                     b.Property<int>("AccessFailedCount")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("integer");
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("text");
 
                     b.Property<string>("Discriminator")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("text");
 
                     b.Property<string>("Email")
                         .HasMaxLength(256)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("character varying(256)");
 
                     b.Property<bool>("EmailConfirmed")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("boolean");
 
                     b.Property<bool>("LockoutEnabled")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("boolean");
 
                     b.Property<DateTimeOffset?>("LockoutEnd")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("NormalizedEmail")
                         .HasMaxLength(256)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("character varying(256)");
 
                     b.Property<string>("NormalizedUserName")
                         .HasMaxLength(256)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("character varying(256)");
 
                     b.Property<string>("PasswordHash")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("text");
 
                     b.Property<string>("PhoneNumber")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("text");
 
                     b.Property<bool>("PhoneNumberConfirmed")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("boolean");
 
                     b.Property<string>("SecurityStamp")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("text");
 
                     b.Property<bool>("TwoFactorEnabled")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("boolean");
 
                     b.Property<string>("UserName")
                         .HasMaxLength(256)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("character varying(256)");
 
                     b.HasKey("Id");
 
@@ -138,7 +146,7 @@ namespace OBMCShopApp.Migrations
                         .IsUnique()
                         .HasDatabaseName("UserNameIndex");
 
-                    b.ToTable("AspNetUsers");
+                    b.ToTable("AspNetUsers", (string)null);
 
                     b.HasDiscriminator<string>("Discriminator").HasValue("IdentityUser");
                 });
@@ -147,132 +155,136 @@ namespace OBMCShopApp.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<string>("ClaimType")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("text");
 
                     b.Property<string>("ClaimValue")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("text");
 
                     b.Property<string>("UserId")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("text");
 
                     b.HasKey("Id");
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("AspNetUserClaims");
+                    b.ToTable("AspNetUserClaims", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
                     b.Property<string>("LoginProvider")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("text");
 
                     b.Property<string>("ProviderKey")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("text");
 
                     b.Property<string>("ProviderDisplayName")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("text");
 
                     b.Property<string>("UserId")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("text");
 
                     b.HasKey("LoginProvider", "ProviderKey");
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("AspNetUserLogins");
+                    b.ToTable("AspNetUserLogins", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
                 {
                     b.Property<string>("UserId")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("text");
 
                     b.Property<string>("RoleId")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("text");
 
                     b.HasKey("UserId", "RoleId");
 
                     b.HasIndex("RoleId");
 
-                    b.ToTable("AspNetUserRoles");
+                    b.ToTable("AspNetUserRoles", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
                     b.Property<string>("UserId")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("text");
 
                     b.Property<string>("LoginProvider")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("text");
 
                     b.Property<string>("Name")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("text");
 
                     b.Property<string>("Value")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("text");
 
                     b.HasKey("UserId", "LoginProvider", "Name");
 
-                    b.ToTable("AspNetUserTokens");
+                    b.ToTable("AspNetUserTokens", (string)null);
                 });
 
             modelBuilder.Entity("OBMCShopApp.Models.Product", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Brand")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("text");
 
                     b.Property<string>("Comments")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("text");
 
                     b.Property<decimal>("CostPrice")
-                        .HasColumnType("decimal(12,2)");
+                        .HasColumnType("numeric(12,2)");
 
-                    b.Property<DateTimeOffset>("CreatedAt")
-                        .HasColumnType("TEXT");
+                    b.Property<DateOnly>("CreatedAt")
+                        .HasColumnType("date");
 
                     b.Property<string>("CreatedBy")
                         .HasMaxLength(50)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("character varying(50)");
 
                     b.Property<bool>("IsDeleted")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("boolean");
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(50)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("character varying(50)");
 
                     b.Property<float>("Quantity")
-                        .HasColumnType("REAL");
+                        .HasColumnType("real");
 
                     b.Property<decimal>("RetailPrice")
-                        .HasColumnType("decimal(12,2)");
+                        .HasColumnType("numeric(12,2)");
 
                     b.Property<int>("ShelfId")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("integer");
 
-                    b.Property<DateTimeOffset>("SupplyDate")
-                        .HasColumnType("TEXT");
+                    b.Property<DateOnly>("SupplyDate")
+                        .HasColumnType("date");
 
                     b.Property<int>("UnitMeasure")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("integer");
 
-                    b.Property<DateTimeOffset>("UpdatedAt")
-                        .HasColumnType("TEXT");
+                    b.Property<DateOnly>("UpdatedAt")
+                        .HasColumnType("date");
 
                     b.Property<string>("UpdatedBy")
                         .HasMaxLength(50)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("character varying(50)");
 
                     b.HasKey("Id");
 
@@ -285,42 +297,44 @@ namespace OBMCShopApp.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("integer");
 
-                    b.Property<DateTimeOffset>("CreatedAt")
-                        .HasColumnType("TEXT");
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<DateOnly>("CreatedAt")
+                        .HasColumnType("date");
 
                     b.Property<string>("CreatedBy")
                         .HasMaxLength(50)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("character varying(50)");
 
                     b.Property<bool>("IsDeleted")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("boolean");
 
                     b.Property<decimal>("Price")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("numeric");
 
                     b.Property<int>("ProductId")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("integer");
 
                     b.Property<string>("ProductName")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("text");
 
                     b.Property<float>("Quantity")
-                        .HasColumnType("REAL");
+                        .HasColumnType("real");
 
                     b.Property<int?>("SaleId")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("integer");
 
                     b.Property<string>("ShelfNumber")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("text");
 
-                    b.Property<DateTimeOffset>("UpdatedAt")
-                        .HasColumnType("TEXT");
+                    b.Property<DateOnly>("UpdatedAt")
+                        .HasColumnType("date");
 
                     b.Property<string>("UpdatedBy")
                         .HasMaxLength(50)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("character varying(50)");
 
                     b.HasKey("Id");
 
@@ -333,42 +347,44 @@ namespace OBMCShopApp.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("integer");
 
-                    b.Property<DateTimeOffset>("CreatedAt")
-                        .HasColumnType("TEXT");
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<DateOnly>("CreatedAt")
+                        .HasColumnType("date");
 
                     b.Property<string>("CreatedBy")
                         .HasMaxLength(50)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("character varying(50)");
 
                     b.Property<decimal>("GrandTotal")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("numeric");
 
                     b.Property<bool>("IsDeleted")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("boolean");
 
                     b.Property<int>("ModeOfPayment")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("integer");
 
-                    b.Property<DateTimeOffset>("SaleDate")
-                        .HasColumnType("TEXT");
+                    b.Property<DateOnly>("SaleDate")
+                        .HasColumnType("date");
 
                     b.Property<string>("SalesPerson")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("text");
 
                     b.Property<decimal>("SubTotal")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("numeric");
 
                     b.Property<int>("TypeOfSale")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("integer");
 
-                    b.Property<DateTimeOffset>("UpdatedAt")
-                        .HasColumnType("TEXT");
+                    b.Property<DateOnly>("UpdatedAt")
+                        .HasColumnType("date");
 
                     b.Property<string>("UpdatedBy")
                         .HasMaxLength(50)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("character varying(50)");
 
                     b.HasKey("Id");
 
@@ -379,30 +395,32 @@ namespace OBMCShopApp.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("integer");
 
-                    b.Property<DateTimeOffset>("CreatedAt")
-                        .HasColumnType("TEXT");
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<DateOnly>("CreatedAt")
+                        .HasColumnType("date");
 
                     b.Property<string>("CreatedBy")
                         .HasMaxLength(50)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("character varying(50)");
 
                     b.Property<bool>("IsDeleted")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("boolean");
 
                     b.Property<string>("ShelfDescription")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("text");
 
                     b.Property<string>("ShelfNumber")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("text");
 
-                    b.Property<DateTimeOffset>("UpdatedAt")
-                        .HasColumnType("TEXT");
+                    b.Property<DateOnly>("UpdatedAt")
+                        .HasColumnType("date");
 
                     b.Property<string>("UpdatedBy")
                         .HasMaxLength(50)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("character varying(50)");
 
                     b.HasKey("Id");
 
@@ -412,380 +430,380 @@ namespace OBMCShopApp.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedAt = new DateTimeOffset(new DateTime(2021, 10, 22, 23, 53, 43, 262, DateTimeKind.Unspecified).AddTicks(6173), new TimeSpan(0, 1, 0, 0, 0)),
+                            CreatedAt = new DateOnly(2022, 2, 9),
                             IsDeleted = false,
                             ShelfDescription = "Has the following products",
                             ShelfNumber = "1",
-                            UpdatedAt = new DateTimeOffset(new DateTime(2021, 10, 22, 23, 53, 43, 269, DateTimeKind.Unspecified).AddTicks(2992), new TimeSpan(0, 1, 0, 0, 0))
+                            UpdatedAt = new DateOnly(2022, 2, 9)
                         },
                         new
                         {
                             Id = 2,
-                            CreatedAt = new DateTimeOffset(new DateTime(2021, 10, 22, 23, 53, 43, 269, DateTimeKind.Unspecified).AddTicks(6365), new TimeSpan(0, 1, 0, 0, 0)),
+                            CreatedAt = new DateOnly(2022, 2, 9),
                             IsDeleted = false,
                             ShelfDescription = "Has the following products",
                             ShelfNumber = "2",
-                            UpdatedAt = new DateTimeOffset(new DateTime(2021, 10, 22, 23, 53, 43, 269, DateTimeKind.Unspecified).AddTicks(6391), new TimeSpan(0, 1, 0, 0, 0))
+                            UpdatedAt = new DateOnly(2022, 2, 9)
                         },
                         new
                         {
                             Id = 3,
-                            CreatedAt = new DateTimeOffset(new DateTime(2021, 10, 22, 23, 53, 43, 269, DateTimeKind.Unspecified).AddTicks(6407), new TimeSpan(0, 1, 0, 0, 0)),
+                            CreatedAt = new DateOnly(2022, 2, 9),
                             IsDeleted = false,
                             ShelfDescription = "Has the following products",
                             ShelfNumber = "3",
-                            UpdatedAt = new DateTimeOffset(new DateTime(2021, 10, 22, 23, 53, 43, 269, DateTimeKind.Unspecified).AddTicks(6414), new TimeSpan(0, 1, 0, 0, 0))
+                            UpdatedAt = new DateOnly(2022, 2, 9)
                         },
                         new
                         {
                             Id = 4,
-                            CreatedAt = new DateTimeOffset(new DateTime(2021, 10, 22, 23, 53, 43, 269, DateTimeKind.Unspecified).AddTicks(6419), new TimeSpan(0, 1, 0, 0, 0)),
+                            CreatedAt = new DateOnly(2022, 2, 9),
                             IsDeleted = false,
                             ShelfDescription = "Has the following products",
                             ShelfNumber = "4",
-                            UpdatedAt = new DateTimeOffset(new DateTime(2021, 10, 22, 23, 53, 43, 269, DateTimeKind.Unspecified).AddTicks(6425), new TimeSpan(0, 1, 0, 0, 0))
+                            UpdatedAt = new DateOnly(2022, 2, 9)
                         },
                         new
                         {
                             Id = 5,
-                            CreatedAt = new DateTimeOffset(new DateTime(2021, 10, 22, 23, 53, 43, 269, DateTimeKind.Unspecified).AddTicks(6431), new TimeSpan(0, 1, 0, 0, 0)),
+                            CreatedAt = new DateOnly(2022, 2, 9),
                             IsDeleted = false,
                             ShelfDescription = "Has the following products",
                             ShelfNumber = "5",
-                            UpdatedAt = new DateTimeOffset(new DateTime(2021, 10, 22, 23, 53, 43, 269, DateTimeKind.Unspecified).AddTicks(6436), new TimeSpan(0, 1, 0, 0, 0))
+                            UpdatedAt = new DateOnly(2022, 2, 9)
                         },
                         new
                         {
                             Id = 6,
-                            CreatedAt = new DateTimeOffset(new DateTime(2021, 10, 22, 23, 53, 43, 269, DateTimeKind.Unspecified).AddTicks(6443), new TimeSpan(0, 1, 0, 0, 0)),
+                            CreatedAt = new DateOnly(2022, 2, 9),
                             IsDeleted = false,
                             ShelfDescription = "Has the following products",
                             ShelfNumber = "6",
-                            UpdatedAt = new DateTimeOffset(new DateTime(2021, 10, 22, 23, 53, 43, 269, DateTimeKind.Unspecified).AddTicks(6448), new TimeSpan(0, 1, 0, 0, 0))
+                            UpdatedAt = new DateOnly(2022, 2, 9)
                         },
                         new
                         {
                             Id = 7,
-                            CreatedAt = new DateTimeOffset(new DateTime(2021, 10, 22, 23, 53, 43, 269, DateTimeKind.Unspecified).AddTicks(6454), new TimeSpan(0, 1, 0, 0, 0)),
+                            CreatedAt = new DateOnly(2022, 2, 9),
                             IsDeleted = false,
                             ShelfDescription = "Has the following products",
                             ShelfNumber = "7",
-                            UpdatedAt = new DateTimeOffset(new DateTime(2021, 10, 22, 23, 53, 43, 269, DateTimeKind.Unspecified).AddTicks(6459), new TimeSpan(0, 1, 0, 0, 0))
+                            UpdatedAt = new DateOnly(2022, 2, 9)
                         },
                         new
                         {
                             Id = 8,
-                            CreatedAt = new DateTimeOffset(new DateTime(2021, 10, 22, 23, 53, 43, 269, DateTimeKind.Unspecified).AddTicks(6465), new TimeSpan(0, 1, 0, 0, 0)),
+                            CreatedAt = new DateOnly(2022, 2, 9),
                             IsDeleted = false,
                             ShelfDescription = "Has the following products",
                             ShelfNumber = "8",
-                            UpdatedAt = new DateTimeOffset(new DateTime(2021, 10, 22, 23, 53, 43, 269, DateTimeKind.Unspecified).AddTicks(6471), new TimeSpan(0, 1, 0, 0, 0))
+                            UpdatedAt = new DateOnly(2022, 2, 9)
                         },
                         new
                         {
                             Id = 9,
-                            CreatedAt = new DateTimeOffset(new DateTime(2021, 10, 22, 23, 53, 43, 269, DateTimeKind.Unspecified).AddTicks(6478), new TimeSpan(0, 1, 0, 0, 0)),
+                            CreatedAt = new DateOnly(2022, 2, 9),
                             IsDeleted = false,
                             ShelfDescription = "Has the following products",
                             ShelfNumber = "9",
-                            UpdatedAt = new DateTimeOffset(new DateTime(2021, 10, 22, 23, 53, 43, 269, DateTimeKind.Unspecified).AddTicks(6483), new TimeSpan(0, 1, 0, 0, 0))
+                            UpdatedAt = new DateOnly(2022, 2, 9)
                         },
                         new
                         {
                             Id = 10,
-                            CreatedAt = new DateTimeOffset(new DateTime(2021, 10, 22, 23, 53, 43, 269, DateTimeKind.Unspecified).AddTicks(6489), new TimeSpan(0, 1, 0, 0, 0)),
+                            CreatedAt = new DateOnly(2022, 2, 9),
                             IsDeleted = false,
                             ShelfDescription = "Has the following products",
                             ShelfNumber = "10",
-                            UpdatedAt = new DateTimeOffset(new DateTime(2021, 10, 22, 23, 53, 43, 269, DateTimeKind.Unspecified).AddTicks(6494), new TimeSpan(0, 1, 0, 0, 0))
+                            UpdatedAt = new DateOnly(2022, 2, 9)
                         },
                         new
                         {
                             Id = 11,
-                            CreatedAt = new DateTimeOffset(new DateTime(2021, 10, 22, 23, 53, 43, 269, DateTimeKind.Unspecified).AddTicks(6500), new TimeSpan(0, 1, 0, 0, 0)),
+                            CreatedAt = new DateOnly(2022, 2, 9),
                             IsDeleted = false,
                             ShelfDescription = "Has the following products",
                             ShelfNumber = "11",
-                            UpdatedAt = new DateTimeOffset(new DateTime(2021, 10, 22, 23, 53, 43, 269, DateTimeKind.Unspecified).AddTicks(6505), new TimeSpan(0, 1, 0, 0, 0))
+                            UpdatedAt = new DateOnly(2022, 2, 9)
                         },
                         new
                         {
                             Id = 12,
-                            CreatedAt = new DateTimeOffset(new DateTime(2021, 10, 22, 23, 53, 43, 269, DateTimeKind.Unspecified).AddTicks(6511), new TimeSpan(0, 1, 0, 0, 0)),
+                            CreatedAt = new DateOnly(2022, 2, 9),
                             IsDeleted = false,
                             ShelfDescription = "Has the following products",
                             ShelfNumber = "12",
-                            UpdatedAt = new DateTimeOffset(new DateTime(2021, 10, 22, 23, 53, 43, 269, DateTimeKind.Unspecified).AddTicks(6516), new TimeSpan(0, 1, 0, 0, 0))
+                            UpdatedAt = new DateOnly(2022, 2, 9)
                         },
                         new
                         {
                             Id = 13,
-                            CreatedAt = new DateTimeOffset(new DateTime(2021, 10, 22, 23, 53, 43, 269, DateTimeKind.Unspecified).AddTicks(6522), new TimeSpan(0, 1, 0, 0, 0)),
+                            CreatedAt = new DateOnly(2022, 2, 9),
                             IsDeleted = false,
                             ShelfDescription = "Has the following products",
                             ShelfNumber = "13",
-                            UpdatedAt = new DateTimeOffset(new DateTime(2021, 10, 22, 23, 53, 43, 269, DateTimeKind.Unspecified).AddTicks(6527), new TimeSpan(0, 1, 0, 0, 0))
+                            UpdatedAt = new DateOnly(2022, 2, 9)
                         },
                         new
                         {
                             Id = 14,
-                            CreatedAt = new DateTimeOffset(new DateTime(2021, 10, 22, 23, 53, 43, 269, DateTimeKind.Unspecified).AddTicks(6533), new TimeSpan(0, 1, 0, 0, 0)),
+                            CreatedAt = new DateOnly(2022, 2, 9),
                             IsDeleted = false,
                             ShelfDescription = "Has the following products",
                             ShelfNumber = "14",
-                            UpdatedAt = new DateTimeOffset(new DateTime(2021, 10, 22, 23, 53, 43, 269, DateTimeKind.Unspecified).AddTicks(6539), new TimeSpan(0, 1, 0, 0, 0))
+                            UpdatedAt = new DateOnly(2022, 2, 9)
                         },
                         new
                         {
                             Id = 15,
-                            CreatedAt = new DateTimeOffset(new DateTime(2021, 10, 22, 23, 53, 43, 269, DateTimeKind.Unspecified).AddTicks(6545), new TimeSpan(0, 1, 0, 0, 0)),
+                            CreatedAt = new DateOnly(2022, 2, 9),
                             IsDeleted = false,
                             ShelfDescription = "Has the following products",
                             ShelfNumber = "15",
-                            UpdatedAt = new DateTimeOffset(new DateTime(2021, 10, 22, 23, 53, 43, 269, DateTimeKind.Unspecified).AddTicks(6550), new TimeSpan(0, 1, 0, 0, 0))
+                            UpdatedAt = new DateOnly(2022, 2, 9)
                         },
                         new
                         {
                             Id = 16,
-                            CreatedAt = new DateTimeOffset(new DateTime(2021, 10, 22, 23, 53, 43, 269, DateTimeKind.Unspecified).AddTicks(6555), new TimeSpan(0, 1, 0, 0, 0)),
+                            CreatedAt = new DateOnly(2022, 2, 9),
                             IsDeleted = false,
                             ShelfDescription = "Has the following products",
                             ShelfNumber = "16",
-                            UpdatedAt = new DateTimeOffset(new DateTime(2021, 10, 22, 23, 53, 43, 269, DateTimeKind.Unspecified).AddTicks(6561), new TimeSpan(0, 1, 0, 0, 0))
+                            UpdatedAt = new DateOnly(2022, 2, 9)
                         },
                         new
                         {
                             Id = 17,
-                            CreatedAt = new DateTimeOffset(new DateTime(2021, 10, 22, 23, 53, 43, 269, DateTimeKind.Unspecified).AddTicks(6567), new TimeSpan(0, 1, 0, 0, 0)),
+                            CreatedAt = new DateOnly(2022, 2, 9),
                             IsDeleted = false,
                             ShelfDescription = "Has the following products",
                             ShelfNumber = "17",
-                            UpdatedAt = new DateTimeOffset(new DateTime(2021, 10, 22, 23, 53, 43, 269, DateTimeKind.Unspecified).AddTicks(6572), new TimeSpan(0, 1, 0, 0, 0))
+                            UpdatedAt = new DateOnly(2022, 2, 9)
                         },
                         new
                         {
                             Id = 18,
-                            CreatedAt = new DateTimeOffset(new DateTime(2021, 10, 22, 23, 53, 43, 269, DateTimeKind.Unspecified).AddTicks(6579), new TimeSpan(0, 1, 0, 0, 0)),
+                            CreatedAt = new DateOnly(2022, 2, 9),
                             IsDeleted = false,
                             ShelfDescription = "Has the following products",
                             ShelfNumber = "18",
-                            UpdatedAt = new DateTimeOffset(new DateTime(2021, 10, 22, 23, 53, 43, 269, DateTimeKind.Unspecified).AddTicks(6584), new TimeSpan(0, 1, 0, 0, 0))
+                            UpdatedAt = new DateOnly(2022, 2, 9)
                         },
                         new
                         {
                             Id = 19,
-                            CreatedAt = new DateTimeOffset(new DateTime(2021, 10, 22, 23, 53, 43, 269, DateTimeKind.Unspecified).AddTicks(6590), new TimeSpan(0, 1, 0, 0, 0)),
+                            CreatedAt = new DateOnly(2022, 2, 9),
                             IsDeleted = false,
                             ShelfDescription = "Has the following products",
                             ShelfNumber = "19",
-                            UpdatedAt = new DateTimeOffset(new DateTime(2021, 10, 22, 23, 53, 43, 269, DateTimeKind.Unspecified).AddTicks(6595), new TimeSpan(0, 1, 0, 0, 0))
+                            UpdatedAt = new DateOnly(2022, 2, 9)
                         },
                         new
                         {
                             Id = 20,
-                            CreatedAt = new DateTimeOffset(new DateTime(2021, 10, 22, 23, 53, 43, 269, DateTimeKind.Unspecified).AddTicks(6601), new TimeSpan(0, 1, 0, 0, 0)),
+                            CreatedAt = new DateOnly(2022, 2, 9),
                             IsDeleted = false,
                             ShelfDescription = "Has the following products",
                             ShelfNumber = "20",
-                            UpdatedAt = new DateTimeOffset(new DateTime(2021, 10, 22, 23, 53, 43, 269, DateTimeKind.Unspecified).AddTicks(6606), new TimeSpan(0, 1, 0, 0, 0))
+                            UpdatedAt = new DateOnly(2022, 2, 9)
                         },
                         new
                         {
                             Id = 21,
-                            CreatedAt = new DateTimeOffset(new DateTime(2021, 10, 22, 23, 53, 43, 269, DateTimeKind.Unspecified).AddTicks(6612), new TimeSpan(0, 1, 0, 0, 0)),
+                            CreatedAt = new DateOnly(2022, 2, 9),
                             IsDeleted = false,
                             ShelfDescription = "Has the following products",
                             ShelfNumber = "21",
-                            UpdatedAt = new DateTimeOffset(new DateTime(2021, 10, 22, 23, 53, 43, 269, DateTimeKind.Unspecified).AddTicks(6617), new TimeSpan(0, 1, 0, 0, 0))
+                            UpdatedAt = new DateOnly(2022, 2, 9)
                         },
                         new
                         {
                             Id = 22,
-                            CreatedAt = new DateTimeOffset(new DateTime(2021, 10, 22, 23, 53, 43, 269, DateTimeKind.Unspecified).AddTicks(6623), new TimeSpan(0, 1, 0, 0, 0)),
+                            CreatedAt = new DateOnly(2022, 2, 9),
                             IsDeleted = false,
                             ShelfDescription = "Has the following products",
                             ShelfNumber = "22",
-                            UpdatedAt = new DateTimeOffset(new DateTime(2021, 10, 22, 23, 53, 43, 269, DateTimeKind.Unspecified).AddTicks(6628), new TimeSpan(0, 1, 0, 0, 0))
+                            UpdatedAt = new DateOnly(2022, 2, 9)
                         },
                         new
                         {
                             Id = 23,
-                            CreatedAt = new DateTimeOffset(new DateTime(2021, 10, 22, 23, 53, 43, 269, DateTimeKind.Unspecified).AddTicks(6634), new TimeSpan(0, 1, 0, 0, 0)),
+                            CreatedAt = new DateOnly(2022, 2, 9),
                             IsDeleted = false,
                             ShelfDescription = "Has the following products",
                             ShelfNumber = "23",
-                            UpdatedAt = new DateTimeOffset(new DateTime(2021, 10, 22, 23, 53, 43, 269, DateTimeKind.Unspecified).AddTicks(6640), new TimeSpan(0, 1, 0, 0, 0))
+                            UpdatedAt = new DateOnly(2022, 2, 9)
                         },
                         new
                         {
                             Id = 24,
-                            CreatedAt = new DateTimeOffset(new DateTime(2021, 10, 22, 23, 53, 43, 269, DateTimeKind.Unspecified).AddTicks(6646), new TimeSpan(0, 1, 0, 0, 0)),
+                            CreatedAt = new DateOnly(2022, 2, 9),
                             IsDeleted = false,
                             ShelfDescription = "Has the following products",
                             ShelfNumber = "24",
-                            UpdatedAt = new DateTimeOffset(new DateTime(2021, 10, 22, 23, 53, 43, 269, DateTimeKind.Unspecified).AddTicks(6651), new TimeSpan(0, 1, 0, 0, 0))
+                            UpdatedAt = new DateOnly(2022, 2, 9)
                         },
                         new
                         {
                             Id = 25,
-                            CreatedAt = new DateTimeOffset(new DateTime(2021, 10, 22, 23, 53, 43, 269, DateTimeKind.Unspecified).AddTicks(6656), new TimeSpan(0, 1, 0, 0, 0)),
+                            CreatedAt = new DateOnly(2022, 2, 9),
                             IsDeleted = false,
                             ShelfDescription = "Has the following products",
                             ShelfNumber = "25",
-                            UpdatedAt = new DateTimeOffset(new DateTime(2021, 10, 22, 23, 53, 43, 269, DateTimeKind.Unspecified).AddTicks(6662), new TimeSpan(0, 1, 0, 0, 0))
+                            UpdatedAt = new DateOnly(2022, 2, 9)
                         },
                         new
                         {
                             Id = 26,
-                            CreatedAt = new DateTimeOffset(new DateTime(2021, 10, 22, 23, 53, 43, 269, DateTimeKind.Unspecified).AddTicks(6667), new TimeSpan(0, 1, 0, 0, 0)),
+                            CreatedAt = new DateOnly(2022, 2, 9),
                             IsDeleted = false,
                             ShelfDescription = "Has the following products",
                             ShelfNumber = "26",
-                            UpdatedAt = new DateTimeOffset(new DateTime(2021, 10, 22, 23, 53, 43, 269, DateTimeKind.Unspecified).AddTicks(6672), new TimeSpan(0, 1, 0, 0, 0))
+                            UpdatedAt = new DateOnly(2022, 2, 9)
                         },
                         new
                         {
                             Id = 27,
-                            CreatedAt = new DateTimeOffset(new DateTime(2021, 10, 22, 23, 53, 43, 269, DateTimeKind.Unspecified).AddTicks(6678), new TimeSpan(0, 1, 0, 0, 0)),
+                            CreatedAt = new DateOnly(2022, 2, 9),
                             IsDeleted = false,
                             ShelfDescription = "Has the following products",
                             ShelfNumber = "27",
-                            UpdatedAt = new DateTimeOffset(new DateTime(2021, 10, 22, 23, 53, 43, 269, DateTimeKind.Unspecified).AddTicks(6684), new TimeSpan(0, 1, 0, 0, 0))
+                            UpdatedAt = new DateOnly(2022, 2, 9)
                         },
                         new
                         {
                             Id = 28,
-                            CreatedAt = new DateTimeOffset(new DateTime(2021, 10, 22, 23, 53, 43, 269, DateTimeKind.Unspecified).AddTicks(6689), new TimeSpan(0, 1, 0, 0, 0)),
+                            CreatedAt = new DateOnly(2022, 2, 9),
                             IsDeleted = false,
                             ShelfDescription = "Has the following products",
                             ShelfNumber = "28",
-                            UpdatedAt = new DateTimeOffset(new DateTime(2021, 10, 22, 23, 53, 43, 269, DateTimeKind.Unspecified).AddTicks(6694), new TimeSpan(0, 1, 0, 0, 0))
+                            UpdatedAt = new DateOnly(2022, 2, 9)
                         },
                         new
                         {
                             Id = 29,
-                            CreatedAt = new DateTimeOffset(new DateTime(2021, 10, 22, 23, 53, 43, 269, DateTimeKind.Unspecified).AddTicks(6701), new TimeSpan(0, 1, 0, 0, 0)),
+                            CreatedAt = new DateOnly(2022, 2, 9),
                             IsDeleted = false,
                             ShelfDescription = "Has the following products",
                             ShelfNumber = "29",
-                            UpdatedAt = new DateTimeOffset(new DateTime(2021, 10, 22, 23, 53, 43, 269, DateTimeKind.Unspecified).AddTicks(6706), new TimeSpan(0, 1, 0, 0, 0))
+                            UpdatedAt = new DateOnly(2022, 2, 9)
                         },
                         new
                         {
                             Id = 30,
-                            CreatedAt = new DateTimeOffset(new DateTime(2021, 10, 22, 23, 53, 43, 269, DateTimeKind.Unspecified).AddTicks(6712), new TimeSpan(0, 1, 0, 0, 0)),
+                            CreatedAt = new DateOnly(2022, 2, 9),
                             IsDeleted = false,
                             ShelfDescription = "Has the following products",
                             ShelfNumber = "30",
-                            UpdatedAt = new DateTimeOffset(new DateTime(2021, 10, 22, 23, 53, 43, 269, DateTimeKind.Unspecified).AddTicks(6717), new TimeSpan(0, 1, 0, 0, 0))
+                            UpdatedAt = new DateOnly(2022, 2, 9)
                         },
                         new
                         {
                             Id = 31,
-                            CreatedAt = new DateTimeOffset(new DateTime(2021, 10, 22, 23, 53, 43, 269, DateTimeKind.Unspecified).AddTicks(6723), new TimeSpan(0, 1, 0, 0, 0)),
+                            CreatedAt = new DateOnly(2022, 2, 9),
                             IsDeleted = false,
                             ShelfDescription = "Has the following products",
                             ShelfNumber = "31",
-                            UpdatedAt = new DateTimeOffset(new DateTime(2021, 10, 22, 23, 53, 43, 269, DateTimeKind.Unspecified).AddTicks(6728), new TimeSpan(0, 1, 0, 0, 0))
+                            UpdatedAt = new DateOnly(2022, 2, 9)
                         },
                         new
                         {
                             Id = 32,
-                            CreatedAt = new DateTimeOffset(new DateTime(2021, 10, 22, 23, 53, 43, 269, DateTimeKind.Unspecified).AddTicks(6839), new TimeSpan(0, 1, 0, 0, 0)),
+                            CreatedAt = new DateOnly(2022, 2, 9),
                             IsDeleted = false,
                             ShelfDescription = "Has the following products",
                             ShelfNumber = "32",
-                            UpdatedAt = new DateTimeOffset(new DateTime(2021, 10, 22, 23, 53, 43, 269, DateTimeKind.Unspecified).AddTicks(6846), new TimeSpan(0, 1, 0, 0, 0))
+                            UpdatedAt = new DateOnly(2022, 2, 9)
                         },
                         new
                         {
                             Id = 33,
-                            CreatedAt = new DateTimeOffset(new DateTime(2021, 10, 22, 23, 53, 43, 269, DateTimeKind.Unspecified).AddTicks(6854), new TimeSpan(0, 1, 0, 0, 0)),
+                            CreatedAt = new DateOnly(2022, 2, 9),
                             IsDeleted = false,
                             ShelfDescription = "Has the following products",
                             ShelfNumber = "33",
-                            UpdatedAt = new DateTimeOffset(new DateTime(2021, 10, 22, 23, 53, 43, 269, DateTimeKind.Unspecified).AddTicks(6859), new TimeSpan(0, 1, 0, 0, 0))
+                            UpdatedAt = new DateOnly(2022, 2, 9)
                         },
                         new
                         {
                             Id = 34,
-                            CreatedAt = new DateTimeOffset(new DateTime(2021, 10, 22, 23, 53, 43, 269, DateTimeKind.Unspecified).AddTicks(6866), new TimeSpan(0, 1, 0, 0, 0)),
+                            CreatedAt = new DateOnly(2022, 2, 9),
                             IsDeleted = false,
                             ShelfDescription = "Has the following products",
                             ShelfNumber = "34",
-                            UpdatedAt = new DateTimeOffset(new DateTime(2021, 10, 22, 23, 53, 43, 269, DateTimeKind.Unspecified).AddTicks(6871), new TimeSpan(0, 1, 0, 0, 0))
+                            UpdatedAt = new DateOnly(2022, 2, 9)
                         },
                         new
                         {
                             Id = 35,
-                            CreatedAt = new DateTimeOffset(new DateTime(2021, 10, 22, 23, 53, 43, 269, DateTimeKind.Unspecified).AddTicks(6877), new TimeSpan(0, 1, 0, 0, 0)),
+                            CreatedAt = new DateOnly(2022, 2, 9),
                             IsDeleted = false,
                             ShelfDescription = "Has the following products",
                             ShelfNumber = "35",
-                            UpdatedAt = new DateTimeOffset(new DateTime(2021, 10, 22, 23, 53, 43, 269, DateTimeKind.Unspecified).AddTicks(6882), new TimeSpan(0, 1, 0, 0, 0))
+                            UpdatedAt = new DateOnly(2022, 2, 9)
                         },
                         new
                         {
                             Id = 36,
-                            CreatedAt = new DateTimeOffset(new DateTime(2021, 10, 22, 23, 53, 43, 269, DateTimeKind.Unspecified).AddTicks(6888), new TimeSpan(0, 1, 0, 0, 0)),
+                            CreatedAt = new DateOnly(2022, 2, 9),
                             IsDeleted = false,
                             ShelfDescription = "Has the following products",
                             ShelfNumber = "36",
-                            UpdatedAt = new DateTimeOffset(new DateTime(2021, 10, 22, 23, 53, 43, 269, DateTimeKind.Unspecified).AddTicks(6894), new TimeSpan(0, 1, 0, 0, 0))
+                            UpdatedAt = new DateOnly(2022, 2, 9)
                         },
                         new
                         {
                             Id = 37,
-                            CreatedAt = new DateTimeOffset(new DateTime(2021, 10, 22, 23, 53, 43, 269, DateTimeKind.Unspecified).AddTicks(6900), new TimeSpan(0, 1, 0, 0, 0)),
+                            CreatedAt = new DateOnly(2022, 2, 9),
                             IsDeleted = false,
                             ShelfDescription = "Has the following products",
                             ShelfNumber = "37",
-                            UpdatedAt = new DateTimeOffset(new DateTime(2021, 10, 22, 23, 53, 43, 269, DateTimeKind.Unspecified).AddTicks(6906), new TimeSpan(0, 1, 0, 0, 0))
+                            UpdatedAt = new DateOnly(2022, 2, 9)
                         },
                         new
                         {
                             Id = 38,
-                            CreatedAt = new DateTimeOffset(new DateTime(2021, 10, 22, 23, 53, 43, 269, DateTimeKind.Unspecified).AddTicks(6912), new TimeSpan(0, 1, 0, 0, 0)),
+                            CreatedAt = new DateOnly(2022, 2, 9),
                             IsDeleted = false,
                             ShelfDescription = "Has the following products",
                             ShelfNumber = "38",
-                            UpdatedAt = new DateTimeOffset(new DateTime(2021, 10, 22, 23, 53, 43, 269, DateTimeKind.Unspecified).AddTicks(6917), new TimeSpan(0, 1, 0, 0, 0))
+                            UpdatedAt = new DateOnly(2022, 2, 9)
                         },
                         new
                         {
                             Id = 39,
-                            CreatedAt = new DateTimeOffset(new DateTime(2021, 10, 22, 23, 53, 43, 269, DateTimeKind.Unspecified).AddTicks(6924), new TimeSpan(0, 1, 0, 0, 0)),
+                            CreatedAt = new DateOnly(2022, 2, 9),
                             IsDeleted = false,
                             ShelfDescription = "Has the following products",
                             ShelfNumber = "39",
-                            UpdatedAt = new DateTimeOffset(new DateTime(2021, 10, 22, 23, 53, 43, 269, DateTimeKind.Unspecified).AddTicks(6929), new TimeSpan(0, 1, 0, 0, 0))
+                            UpdatedAt = new DateOnly(2022, 2, 9)
                         },
                         new
                         {
                             Id = 40,
-                            CreatedAt = new DateTimeOffset(new DateTime(2021, 10, 22, 23, 53, 43, 269, DateTimeKind.Unspecified).AddTicks(6936), new TimeSpan(0, 1, 0, 0, 0)),
+                            CreatedAt = new DateOnly(2022, 2, 9),
                             IsDeleted = false,
                             ShelfDescription = "Has the following products",
                             ShelfNumber = "40",
-                            UpdatedAt = new DateTimeOffset(new DateTime(2021, 10, 22, 23, 53, 43, 269, DateTimeKind.Unspecified).AddTicks(6942), new TimeSpan(0, 1, 0, 0, 0))
+                            UpdatedAt = new DateOnly(2022, 2, 9)
                         },
                         new
                         {
                             Id = 41,
-                            CreatedAt = new DateTimeOffset(new DateTime(2021, 10, 22, 23, 53, 43, 269, DateTimeKind.Unspecified).AddTicks(6949), new TimeSpan(0, 1, 0, 0, 0)),
+                            CreatedAt = new DateOnly(2022, 2, 9),
                             IsDeleted = false,
                             ShelfDescription = "Has the following products",
                             ShelfNumber = "41",
-                            UpdatedAt = new DateTimeOffset(new DateTime(2021, 10, 22, 23, 53, 43, 269, DateTimeKind.Unspecified).AddTicks(6954), new TimeSpan(0, 1, 0, 0, 0))
+                            UpdatedAt = new DateOnly(2022, 2, 9)
                         },
                         new
                         {
                             Id = 42,
-                            CreatedAt = new DateTimeOffset(new DateTime(2021, 10, 22, 23, 53, 43, 269, DateTimeKind.Unspecified).AddTicks(6960), new TimeSpan(0, 1, 0, 0, 0)),
+                            CreatedAt = new DateOnly(2022, 2, 9),
                             IsDeleted = false,
                             ShelfDescription = "Has the following products",
                             ShelfNumber = "42",
-                            UpdatedAt = new DateTimeOffset(new DateTime(2021, 10, 22, 23, 53, 43, 269, DateTimeKind.Unspecified).AddTicks(6966), new TimeSpan(0, 1, 0, 0, 0))
+                            UpdatedAt = new DateOnly(2022, 2, 9)
                         });
                 });
 
@@ -794,7 +812,7 @@ namespace OBMCShopApp.Migrations
                     b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityRole");
 
                     b.Property<string>("Description")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("text");
 
                     b.HasDiscriminator().HasValue("ApplicationRole");
                 });
@@ -804,10 +822,10 @@ namespace OBMCShopApp.Migrations
                     b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
 
                     b.Property<string>("FirstName")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("text");
 
                     b.Property<string>("LastName")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("text");
 
                     b.HasDiscriminator().HasValue("ApplicationUser");
                 });

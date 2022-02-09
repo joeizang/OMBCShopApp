@@ -81,8 +81,8 @@ namespace OBMCShopApp.Services
             {
                 if (entity.State == EntityState.Added)
                 {
-                    entity.Entity.CreatedAt = DateTimeOffset.Now;
-                    entity.Entity.UpdatedAt = DateTimeOffset.Now;
+                    entity.Entity.CreatedAt = DateOnly.FromDateTime(DateTime.Now);
+                    entity.Entity.UpdatedAt = DateOnly.FromDateTime(DateTime.Now);
                     if (string.IsNullOrEmpty(entity.Entity.CreatedBy))
                     {
                         entity.Entity.CreatedBy = user;
@@ -92,7 +92,7 @@ namespace OBMCShopApp.Services
 
                 if (entity.State == EntityState.Modified)
                 {
-                    entity.Entity.UpdatedAt = DateTimeOffset.Now;
+                    entity.Entity.UpdatedAt = DateOnly.FromDateTime(DateTime.Now);
                     if (string.IsNullOrEmpty(entity.Entity.UpdatedBy))
                     {
                         entity.Entity.UpdatedBy = user.ToUpperInvariant();

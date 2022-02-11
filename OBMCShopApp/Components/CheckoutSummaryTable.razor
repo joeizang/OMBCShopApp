@@ -1,0 +1,40 @@
+﻿@using OBMCShopApp.ViewModels
+
+<table class="table rounded table-striped table-ho table-responsive table-bordered">
+    <thead class="" style="background: #ab47bc; color: whitesmoke;">
+        <tr>
+            <th class="w-50">Name</th>
+            <th class="w-25">Price</th>
+            <th class="">Qty</th>
+            <th class="w-50">Total</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(var p in Products)
+        {
+            <tr>
+                <td>@p.Name</td>
+                <td>@p.RetailPrice</td>
+                <td>@p.Quantity</td>
+                <td>@(p.RetailPrice * (decimal)p.Quantity)</td>
+            </tr>
+        }
+        <tr>
+            <td></td>
+            <td></td>
+            <td>Grand Total:</td>
+            <td>@GrandTotal</td>
+        </tr>
+    </tbody>
+</table>
+
+@code {
+    [Parameter] public IEnumerable<ProductSoldViewModel> Products { get; set; }
+    public decimal GrandTotal { get; set; }
+
+    protected override void OnInitialized()
+    {
+        var result = Products.Select(x => x.RetailPrice * (decimal)x.Quantity).ToArray();
+        GrandTotal = result.Sum();
+    }
+}

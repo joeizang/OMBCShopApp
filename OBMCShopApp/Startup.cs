@@ -11,6 +11,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using OBMCShopApp.Constants;
 using OBMCShopApp.Data;
+using OBMCShopApp.Infrastructure;
 using OBMCShopApp.Models;
 using OBMCShopApp.Services;
 using Syncfusion.Blazor;
@@ -32,8 +33,6 @@ namespace OBMCShopApp
             services.AddDbContext<OBMCShopAppContext>(options =>
             options.UseNpgsql(
                     Configuration.GetConnectionString("DefaultConnection")));
-            //options.UseSqlite(
-            //        Configuration.GetConnectionString("DefaultConnection")));
             services.AddDatabaseDeveloperPageExceptionFilter();
 
             services.AddIdentity<ApplicationUser, ApplicationRole>(options => options.SignIn.RequireConfirmedAccount = false)
@@ -52,12 +51,18 @@ namespace OBMCShopApp
             services.AddAutoMapper(typeof(Startup));
             services.AddMediatR(typeof(Startup));
             services.AddScoped(typeof(IDataService<>), typeof(GenericDataService<>));
-            services.AddControllersWithViews();
+            services.AddControllersWithViews().AddJsonOptions(options =>
+            {
+                options.JsonSerializerOptions.Converters.Add(new DateOnlyConverter());
+            });
             services.AddRazorPages();
             services.AddServerSideBlazor();
             services.AddBlazoredModal();
             services.AddBlazoredToast();
-            services.AddBlazoredLocalStorage();
+            services.AddBlazoredLocalStorage(config =>
+            {
+                config.JsonSerializerOptions.Converters.Add(new DateOnlyConverter());
+            });
             services.AddSyncfusionBlazor();
         }
 

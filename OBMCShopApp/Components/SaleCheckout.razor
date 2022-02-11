@@ -1,13 +1,25 @@
 @using OBMCShopApp.ViewModels
-<div class="">
-<h3>Sale Checkout</h3>
+@inject ILocalStorageService LocalStorageService
+<div>
     <div>
-         @foreach(var p in @SalePayload.Products)
-         {
-            <p>@p.Name</p>
-         }
+         <CheckoutSummaryTable Products="SalePayload.Products" />
+    </div>
+    <div class="d-flex">
+        <button class="btn btn-success" @onclick="@(() => FinishSale.InvokeAsync())">
+            Finish Sale
+        </button>
+        <button class="btn btn-danger ml-3" @onclick="@(() => RemoveCart.InvokeAsync())">
+            Cancel Sale
+        </button>
     </div>
 </div>
 @code {
     [Parameter] public CreateSaleInputModel SalePayload { get; set; } = new();
+    [Parameter] public EventCallback RemoveCart { get; set; }
+    [Parameter] public EventCallback FinishSale { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        var stored = await LocalStorageService.GetItemAsync<CreateSaleInputModel>("cart");
+    }
 }

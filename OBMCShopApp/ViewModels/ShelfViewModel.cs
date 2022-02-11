@@ -8,7 +8,7 @@ namespace OBMCShopApp.ViewModels
         [StringLength(6)]
         [DataType(DataType.Text)]
         public string ShelfNumber { get; set; }
-        
+
         [Display(Name = "Shelf ID")]
         public int ShelfId { get; set; }
     }

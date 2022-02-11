@@ -1,11 +1,12 @@
 using AutoMapper;
-using AutoMapper.QueryableExtensions;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using OBMCShopApp.Data;
 using OBMCShopApp.Models;
 using OBMCShopApp.ViewModels;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace OBMCShopApp.Services
@@ -24,7 +25,13 @@ namespace OBMCShopApp.Services
         public async Task<List<SalesIndexViewModel>> GetAllSales()
         {
             var query = await _context.Sales.AsNoTracking().Include(s => s.ItemsSold)
-                .ProjectTo<SalesIndexViewModel>(_mapper.ConfigurationProvider)
+                .Select(x => new SalesIndexViewModel
+                {
+                    SaleDate = x.SaleDate.ToDateTime(TimeOnly.MinValue),
+                    GrandTotal = x.GrandTotal,
+                    NumberOfItemsSold = x.ItemsSold.Count,
+                    SalesPerson = x.SalesPerson
+                })
                 .ToListAsync()
                 .ConfigureAwait(false);
             return query;

@@ -23,11 +23,14 @@ else
         </button>
     </div>
 }
-<SfDialog Width="75%" IsModal="true" @bind-Visible="@_showModal" ShowCloseIcon="true">
+<SfDialog  Width="50%" IsModal="true" @bind-Visible="@_showModal" ShowCloseIcon="true">
     <DialogTemplates>
-        <Header><h3 class="h3">Finish Sale</h3></Header>
+        <Header><h3 class="h3 text-center">Finish Sale</h3></Header>
         <Content>
-            <SaleCheckout SalePayload="@saleCart"></SaleCheckout>
+            <SaleCheckout SalePayload="@saleCart"
+              RemoveCart="RemoveCurrentCart"
+              FinishSale="FinishSale"
+            />
         </Content>
     </DialogTemplates>
 </SfDialog>
@@ -60,6 +63,16 @@ else
         var cart = await BrowserStorage
                     .GetItemAsync<CreateSaleInputModel>("cart");
         return cart?.Products.Count ?? 0;
+    }
+
+    private async Task RemoveCurrentCart()
+    {
+        await BrowserStorage.RemoveItemAsync("cart");
+    }
+
+    private async Task FinishSale()
+    {
+        Console.WriteLine("Finish Sale!!");
     }
 
     public void Dispose()

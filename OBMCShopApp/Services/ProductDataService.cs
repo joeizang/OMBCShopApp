@@ -27,7 +27,7 @@ namespace OBMCShopApp.Services
                 .Select(p => new ProductIndexViewModel
                 {
                     Name = p.Name,
-                    SupplyDate = p.SupplyDate,
+                    SupplyDate = p.SupplyDate.ToDateTime(TimeOnly.MinValue),
                     CostPrice = p.CostPrice,
                     RetailPrice = p.RetailPrice,
                     UnitMeasure = p.UnitMeasure,

@@ -15,7 +15,7 @@ namespace OBMCShopApp.ViewModels
 
         public List<ProductSoldViewModel> Products { get; set; }
 
-        public DateOnly SaleDate { get; set; }
+        public DateTime SaleDate { get; set; }
 
         public string SalesPerson { get; set; }
     }

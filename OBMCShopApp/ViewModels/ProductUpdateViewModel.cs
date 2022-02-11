@@ -32,7 +32,7 @@ namespace OBMCShopApp.ViewModels
         [Required]
         [Display(Name = "Supply Date")]
         [DataType(DataType.Date)]
-        public DateOnly SupplyDate { get; set; }
+        public DateTime SupplyDate { get; set; }
 
         [Required]
         public float Quantity { get; set; }

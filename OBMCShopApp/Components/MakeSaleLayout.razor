@@ -37,6 +37,9 @@
                         @(product.Quantity == 1f ? "Out of Stock" : product.Quantity >= 2 && product.Quantity < 5f ? "Stock is low" : "In Stock")
                     </small>
                 </p>
+                <div class="col-10">
+                    <input type="number" @bind-value="product.QuantityBought" class="form-control border rounded text-center font-weight-bold" />
+                </div>
                 <span class="place-price card-text p-2 font-weight-bold text-center text-dark bg-secondary" id="price">
                     =N= @product.RetailPrice.ToString("N2")
                 </span>
@@ -75,15 +78,6 @@
         cardButtonState = "btn-info";
         AuthState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
         products = await GetProducts();
-        //products = _cache.Get<List<ProductIndexViewModel>>("productsForSale");
-        //if(products is null)
-        //{
-        //    var temp = await GetProducts();
-        //    products = temp;
-        //}
-
-        //_cache.Set<List<ProductIndexViewModel>>("productsForSale", products, TimeSpan.FromSeconds(30));
-
     }
 
     private async Task AddOrderedItem(ProductIndexViewModel product)
@@ -93,7 +87,8 @@
         {
             Name = product.Name,
             ProductID = product.ProductID,
-            RetailPrice = product.RetailPrice
+            RetailPrice = product.RetailPrice,
+            Quantity = product.QuantityBought
         });
 
     }
@@ -124,7 +119,7 @@
                     Quantity = x.Quantity,
                     RetailPrice = x.RetailPrice,
                     ShelfNumber = x.ProductShelf.ShelfNumber,
-                    SupplyDate = x.SupplyDate
+                    SupplyDate = x.SupplyDate.ToDateTime(TimeOnly.MinValue),
                 }).ToListAsync().ConfigureAwait(false);
         return result;
     }
